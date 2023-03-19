@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418071715024ad645a3fad5800543ea9, type: 3}
+  m_Name: Constants
+  m_EditorClassIdentifier: 
+  arena:
+    playerColors:
+    - {r: 1, g: 0.3339622, b: 0.3339622, a: 1}
+    - {r: 0.38113207, g: 0.6365379, b: 1, a: 1}
+    - {r: 0.9444245, g: 1, b: 0.44716978, a: 1}
+    - {r: 0.39999998, g: 1, b: 0.43560883, a: 1}
+    mouseCastLayerMask:
+      serializedVersion: 2
+      m_Bits: 129
+    environmentLayerMask:
+      serializedVersion: 2
+      m_Bits: 1
+    projectileLayerMask:
+      serializedVersion: 2
+      m_Bits: 321
+  ui:
+    maxDamageColor: 100
+    damageColorGradient:
+      serializedVersion: 2
+      key0: {r: 0.40943396, g: 1, b: 0.48234332, a: 1}
+      key1: {r: 0.9886343, g: 1, b: 0.5226415, a: 1}
+      key2: {r: 1, g: 0.410106, b: 0.37169808, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 31539
+      ctime2: 65228
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 2
