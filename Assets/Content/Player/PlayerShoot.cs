@@ -84,13 +84,13 @@ namespace CapsuleHands.PlayerCore
                 {
                     targeter.SetPosition( 0, source.position );
 
-                    if ( Physics.Raycast( source.position, player.AimTarget - source.position, out rayCastHit, 100f, cachedHitMask, QueryTriggerInteraction.Ignore ) )
+                    if ( Physics.Raycast( source.position, player.AimTarget - source.position, out rayCastHit, 3f, cachedHitMask, QueryTriggerInteraction.Ignore ) )
                     {
                         targeter.SetPosition( 1, rayCastHit.point );
                     }
                     else
                     {
-                        targeter.SetPosition( 1, source.position + ( player.AimTarget - source.position ).normalized * 100f );
+                        targeter.SetPosition( 1, source.position + ( player.AimTarget - source.position ).normalized * 3f );
                     }
 
                     shootGroundTarget.position = player.GroundTarget.position;
@@ -121,7 +121,7 @@ namespace CapsuleHands.PlayerCore
         [Command]
         private void ServerShoot( Vector3 position, Vector3 direction, float networkTime )
         {
-            float passedTime = (float)( NetworkTime.time - networkTime );
+            float passedTime = ( float ) ( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME / 2f, passedTime );
 
@@ -131,7 +131,7 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc( includeOwner = false )]
         private void ClientShoot( Vector3 position, Vector3 direction, float networkTime )
         {
-            float passedTime = (float)( NetworkTime.time - networkTime );
+            float passedTime = ( float ) ( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME, passedTime );
 
@@ -146,7 +146,7 @@ namespace CapsuleHands.PlayerCore
             {
                 Shoot( source.position, player.AimTarget - source.position, 0f );
 
-                ServerShoot( source.position, player.AimTarget - source.position, (float)NetworkTime.time );
+                ServerShoot( source.position, player.AimTarget - source.position, ( float ) NetworkTime.time );
             }
         }
 

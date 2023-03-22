@@ -78,16 +78,16 @@ namespace CapsuleHands.PlayerCore
 
         public Vector3 AimTarget { get; private set; }
 
-        private void GetAimTarget()
+        public void GetAimTarget( bool elevation )
         {
-            float groundToAimDist = gun.localPosition.y / ( Mathf.Sin( Mathf.Deg2Rad * mainCamera.transform.eulerAngles.x ) );
-
-            AimTarget = groundTarget.position + ( mainCamera.transform.position - groundTarget.position ).normalized * Mathf.Lerp( groundToAimDist, 0.4f, Mathf.Clamp( transform.position.y - groundTarget.position.y, 0, 1 ) );
+            float groundToAimDist = gun.localPosition.y;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
+            //( MainCamera.transform.position - groundTarget.position ).normalized
+            AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( transform.position.y - groundTarget.position.y, 0, 1 ) ) : groundToAimDist );
         }
 
         public Action OnUIRefresh;
 
-        private Camera mainCamera;
+        public Camera MainCamera { get; private set; }
 
         private void Awake()
         {
@@ -95,7 +95,7 @@ namespace CapsuleHands.PlayerCore
 
             Collider = GetComponent<CapsuleCollider>();
 
-            mainCamera = Camera.main;
+            MainCamera = CameraManager.Instance.GetComponentInChildren<Camera>();
 
             if ( startActive )
             {
@@ -198,8 +198,6 @@ namespace CapsuleHands.PlayerCore
             {
                 transform.position = cachedRaycastBuffer[0].point;
             }
-
-            GetAimTarget();
         }
 
         private void Update()
@@ -238,7 +236,12 @@ namespace CapsuleHands.PlayerCore
                 this.damage += damage;
 
             if ( isLocalPlayer )
+            {
+                if ( hitDirection.sqrMagnitude > 1 )
+                    hitDirection.Normalize();
+
                 Rigidbody.AddForce( forceScale * ( Damage / 4f ) * hitDirection, ForceMode.Impulse );
+            }
         }
 
         private void OnDamageUpdated( float oldDamage, float newDamage )
@@ -298,8 +301,6 @@ namespace CapsuleHands.PlayerCore
                 Rigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
 
                 groundTarget.position = Vector3.zero;
-
-                GetAimTarget();
             }
 
             CameraManager.Instance.SubscriptionUpdate( this, true );
@@ -352,10 +353,6 @@ namespace CapsuleHands.PlayerCore
             Gizmos.color = Color.red;
 
             Gizmos.DrawSphere( GroundTarget.position, 0.3f );
-
-            Gizmos.color = Color.yellow;
-
-            Gizmos.DrawSphere( AimTarget, 0.3f );
         }
 #endif
     }
