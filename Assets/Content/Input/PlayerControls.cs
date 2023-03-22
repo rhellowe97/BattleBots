@@ -98,6 +98,24 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ElevationAim"",
+                    ""type"": ""Button"",
+                    ""id"": ""c940c8f6-eca0-48b3-8128-aa513608a130"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PrecisionAiming"",
+                    ""type"": ""Button"",
+                    ""id"": ""80b660d7-66fd-4c71-a17c-3276d1560e22"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -118,7 +136,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -129,7 +147,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -140,7 +158,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -151,10 +169,21 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d49d4ac2-0169-43ad-9675-d98388182f9f"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone"",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -162,7 +191,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c81f1aef-0efa-4bfc-a722-feb121c8516a"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": ""StickDeadzone(min=0.33,max=1)"",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""Look"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -174,6 +214,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
+                    ""action"": ""AbilityPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""70ee0fd9-6ba2-4b4b-a72b-a9982f78cf25"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
                     ""action"": ""AbilityPrimary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -232,11 +283,87 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""ToggleAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3d961a3a-ebef-44ae-8464-3e53cb333c46"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleAim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6f26c3f-0719-4137-a229-b314ef2bee1a"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ElevationAim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6985a7b1-38b5-4322-90e6-0cbbc8b272eb"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ElevationAim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<DualSenseGamepadHID>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<DualShockGamepad>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
@@ -248,6 +375,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_Evade = m_Player.FindAction("Evade", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_ToggleAim = m_Player.FindAction("ToggleAim", throwIfNotFound: true);
+        m_Player_ElevationAim = m_Player.FindAction("ElevationAim", throwIfNotFound: true);
+        m_Player_PrecisionAiming = m_Player.FindAction("PrecisionAiming", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -315,6 +444,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Evade;
     private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_ToggleAim;
+    private readonly InputAction m_Player_ElevationAim;
+    private readonly InputAction m_Player_PrecisionAiming;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -327,6 +458,8 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @Evade => m_Wrapper.m_Player_Evade;
         public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @ToggleAim => m_Wrapper.m_Player_ToggleAim;
+        public InputAction @ElevationAim => m_Wrapper.m_Player_ElevationAim;
+        public InputAction @PrecisionAiming => m_Wrapper.m_Player_PrecisionAiming;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -360,6 +493,12 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ToggleAim.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleAim;
                 @ToggleAim.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleAim;
                 @ToggleAim.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnToggleAim;
+                @ElevationAim.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnElevationAim;
+                @ElevationAim.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnElevationAim;
+                @ElevationAim.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnElevationAim;
+                @PrecisionAiming.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionAiming;
+                @PrecisionAiming.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionAiming;
+                @PrecisionAiming.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnPrecisionAiming;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -388,10 +527,34 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @ToggleAim.started += instance.OnToggleAim;
                 @ToggleAim.performed += instance.OnToggleAim;
                 @ToggleAim.canceled += instance.OnToggleAim;
+                @ElevationAim.started += instance.OnElevationAim;
+                @ElevationAim.performed += instance.OnElevationAim;
+                @ElevationAim.canceled += instance.OnElevationAim;
+                @PrecisionAiming.started += instance.OnPrecisionAiming;
+                @PrecisionAiming.performed += instance.OnPrecisionAiming;
+                @PrecisionAiming.canceled += instance.OnPrecisionAiming;
             }
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
+        }
+    }
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -402,5 +565,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnEvade(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
         void OnToggleAim(InputAction.CallbackContext context);
+        void OnElevationAim(InputAction.CallbackContext context);
+        void OnPrecisionAiming(InputAction.CallbackContext context);
     }
 }
