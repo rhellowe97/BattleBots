@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5844918664300231880}
   - component: {fileID: 5844918664300231885}
   m_Layer: 0
-  m_Name: ImpactEffect
+  m_Name: FX_ImpactEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
