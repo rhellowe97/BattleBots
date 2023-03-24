@@ -24,6 +24,9 @@ namespace CapsuleHands.PlayerCore
 
         [SerializeField] private MeshRenderer primaryRenderer;
 
+        [SerializeField] private float hoverHeight;
+        public float HoverHeight => hoverHeight;
+
         private MaterialPropertyBlock mpb;
 
         [SyncVar( hook = nameof( OnNameUpdated ) )]
@@ -78,16 +81,17 @@ namespace CapsuleHands.PlayerCore
 
         public Vector3 AimTarget { get; private set; }
 
-        public void GetAimTarget( bool elevation )
-        {
-            float groundToAimDist = gun.localPosition.y;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
-            //( MainCamera.transform.position - groundTarget.position ).normalized
-            AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( transform.position.y - groundTarget.position.y, 0, 1 ) ) : groundToAimDist );
-        }
-
         public Action OnUIRefresh;
 
         public Camera MainCamera { get; private set; }
+
+        public void GetAimTarget( bool elevation )
+        {
+            float groundToAimDist = hoverHeight + Gun.localPosition.y;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
+            //( MainCamera.transform.position - groundTarget.position ).normalized
+            AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( ( transform.position.y - groundToAimDist ) - groundTarget.position.y, 0f, 1f ) ) : 0f );
+        }
+
 
         private void Awake()
         {
@@ -193,11 +197,6 @@ namespace CapsuleHands.PlayerCore
                 groundCheckDistance + groundCheckOffset,
                 cachedGroundMask
                 ) > 0;
-
-            if ( validGroundCast )
-            {
-                transform.position = cachedRaycastBuffer[0].point;
-            }
         }
 
         private void Update()

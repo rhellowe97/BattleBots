@@ -19,9 +19,11 @@ namespace CapsuleHands.PlayerCore
 
         [SerializeField] private float gravityScale = 1f;
 
-        [SerializeField] private float hoverHeight = 0.5f;
+        [SerializeField] private float heightSmoothing = 3f;
 
         private Vector3 moveInput = Vector3.zero;
+
+        private RaycastHit raycastHitResult;
 
         protected override void LocalPlayerStart()
         {
@@ -80,8 +82,18 @@ namespace CapsuleHands.PlayerCore
                 }
 
                 player.Rigidbody.AddForce( moveVector * acceleration, ForceMode.VelocityChange );
+                //new Vector3( player.Collider.radius * 0.75f, player.Collider.radius * 0.75f, 0.1f )
 
-                if ( !player.IsGrounded )
+
+                if ( Physics.Raycast( player.transform.position + Vector3.up * 0.1f, Vector3.down, out raycastHitResult, player.HoverHeight + 0.5f, Constants.Arena.EnvironmentLayerMask, QueryTriggerInteraction.Ignore ) )
+                {
+                    Vector3 position = player.transform.position;
+
+                    position.y = Mathf.Lerp( position.y, raycastHitResult.point.y + player.HoverHeight, heightSmoothing * Time.fixedDeltaTime );
+
+                    player.transform.position = position;
+                }
+                else
                 {
                     player.Rigidbody.AddForce( Vector3.down * 9.81f * gravityScale );
                 }
