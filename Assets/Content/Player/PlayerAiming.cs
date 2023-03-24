@@ -57,6 +57,8 @@ namespace CapsuleHands.PlayerCore
                 elevationAction = PlayerInputManager.Instance.Controls.FindAction( elevationActionRef.action.id );
 
                 elevationAction.performed += ElevationAction_Performed;
+
+                elevationAction.canceled += ElevationAction_Canceled;
             }
             else
             {
@@ -85,6 +87,11 @@ namespace CapsuleHands.PlayerCore
         private void ElevationAction_Performed( InputAction.CallbackContext context )
         {
             controllerAimCursorPosition = player.MainCamera.WorldToScreenPoint( player.transform.position + player.transform.forward * 5f );
+        }
+
+        private void ElevationAction_Canceled( InputAction.CallbackContext context )
+        {
+            elevationAimTarget.gameObject.SetActive( false );
         }
 
         protected override void LocalPlayerUpdate()
@@ -131,6 +138,11 @@ namespace CapsuleHands.PlayerCore
                             lookTargetLocation = raycastHit.point;
 
                             elevationAimTarget.position = lookTargetLocation;
+
+                            if ( !elevationAimTarget.gameObject.activeSelf )
+                            {
+                                elevationAimTarget.gameObject.SetActive( true );
+                            }
                         }
                     }
                     else
@@ -176,6 +188,13 @@ namespace CapsuleHands.PlayerCore
             if ( isLocalPlayer )
             {
                 AimManager.Instance.UnRegister( this );
+
+                if ( elevationAction != null )
+                {
+                    elevationAction.performed -= ElevationAction_Performed;
+
+                    elevationAction.canceled -= ElevationAction_Canceled;
+                }
             }
         }
     }

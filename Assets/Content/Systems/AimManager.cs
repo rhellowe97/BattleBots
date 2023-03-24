@@ -13,6 +13,8 @@ namespace CapsuleHands.Singleton
 
         private PlayerAiming controllingPlayer;
 
+        private HashSet<object> locks = new HashSet<object>();
+
         public void Register( PlayerAiming move )
         {
             if ( controllingPlayer == null )
@@ -29,9 +31,22 @@ namespace CapsuleHands.Singleton
             }
         }
 
+        public void AddLock( object o )
+        {
+            locks.Add( 0 );
+        }
+
+        public void RemoveLock( object o )
+        {
+            if ( locks.Contains( 0 ) )
+            {
+                locks.Remove( 0 );
+            }
+        }
+
         private void Update()
         {
-            mouseCastPlane.transform.position = Vector3.Slerp( mouseCastPlane.transform.position, ( controllingPlayer == null || controllingPlayer.ElevatedAiming ) ? Vector3.zero : Vector3.up * controllingPlayer.transform.position.y, smoothing * Time.deltaTime );
+            mouseCastPlane.transform.position = ( locks.Count > 0 || ( controllingPlayer == null || controllingPlayer.ElevatedAiming ) ) ? Vector3.zero : Vector3.up * controllingPlayer.transform.position.y;
         }
     }
 }
