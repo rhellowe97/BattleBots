@@ -114,7 +114,7 @@ Material:
     - _NormalMapKwToggle: 0
     - _NormalSpherify: 0
     - _NormalSpherifyMask: 0
-    - _OcclusionStrength: 1
+    - _OcclusionStrength: 0.531
     - _PerspectiveCorrection: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
@@ -132,7 +132,7 @@ Material:
     - _Translucency: 1
     - _TranslucencyDirect: 1
     - _TranslucencyFalloff: 4
-    - _TranslucencyIndirect: 0.036
+    - _TranslucencyIndirect: 0.016
     - _TranslucencyOffset: 0
     - _TwoSided: 0
     - _VertexDarkening: 0
@@ -155,14 +155,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.8437501, b: 0, a: 1}
+    - _BaseColor: {r: 0.6658373, g: 0.6698113, b: 0.16113384, a: 1}
     - _BendTint: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FadeFar: {r: 50, g: 100, b: 0, a: 0}
     - _FadeNear: {r: 0.25, g: 0.5, b: 0, a: 0}
     - _FadeParams: {r: 50, g: 100, b: 0, a: 0}
-    - _HueVariation: {r: 1, g: 0.39946553, b: 0.30588233, a: 0.11372549}
+    - _HueVariation: {r: 0.5283019, g: 0.44017947, b: 0.12709148, a: 0.11372549}
     - _HueVariationColor: {r: 1, g: 0.5, b: 0, a: 0.1}
     - _LODDebugColor: {r: 1, g: 1, b: 1, a: 1}
     - _NormalParams: {r: 0, g: 1, b: 0, a: 0}
