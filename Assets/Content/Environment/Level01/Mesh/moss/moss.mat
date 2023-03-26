@@ -8,16 +8,15 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: moss
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: d7dd1c3f4cba1d441a7d295a168bac0d, type: 3}
   m_ValidKeywords:
-  - _ALPHATEST_ON
+  - _ADVANCED_LIGHTING
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 1
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -51,6 +50,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -122,12 +125,13 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _NormalFlattenDepthNormals: 0
-    - _NormalFlattening: 1
+    - _NormalFlattening: 0
     - _NormalSpherify: 0
     - _NormalSpherifyMask: 0
+    - _NormalStrength: 0.25
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PerspectiveCorrection: 1
+    - _PerspectiveCorrection: 0.042
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Scalemap: 0
@@ -137,22 +141,23 @@ Material:
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
+    - _Speed: 0.25
     - _SrcBlend: 1
     - _Surface: 0
-    - _TranslucencyDirect: 1
-    - _TranslucencyFalloff: 4
+    - _TranslucencyDirect: 0
+    - _TranslucencyFalloff: 1
     - _TranslucencyIndirect: 0
     - _TranslucencyOffset: 0
-    - _VertexDarkening: 0.1
+    - _VertexDarkening: 0
     - _WindAmbientStrength: 0.2
-    - _WindGustFreq: 4
-    - _WindGustSpeed: 4
-    - _WindGustStrength: 0.2
+    - _WindGustFreq: 0.76
+    - _WindGustSpeed: 6
+    - _WindGustStrength: 0.127
     - _WindGustTint: 0.1
     - _WindObjectRand: 0.5
     - _WindRandStrength: 0.5
-    - _WindSpeed: 3
-    - _WindSwinging: 0.15
+    - _WindSpeed: 1
+    - _WindSwinging: 0.086
     - _WindVertexRand: 0.6
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -165,12 +170,12 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FadeFar: {r: 50, g: 100, b: 0, a: 0}
     - _FadeNear: {r: 0.25, g: 0.5, b: 0, a: 0}
-    - _HueVariation: {r: 1, g: 0.63, b: 0, a: 0.15}
+    - _HueVariation: {r: 0, g: 0.4528302, b: 0.34868324, a: 0.15}
     - _LODDebugColor: {r: 1, g: 1, b: 1, a: 1}
     - _ScalemapInfluence: {r: 0, g: 1, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _WindDirection: {r: 1, g: 0, b: 0, a: 0}
+    - _WindDirection: {r: 0.4, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8277970710646467082
 MonoBehaviour:
