@@ -68,7 +68,7 @@ GameObject:
   - component: {fileID: 1249625434352527126}
   m_Layer: 0
   m_Name: PlayerMainCamera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.9056604, g: 0.49971017, b: 0.2853684, a: 0}
+  m_BackGroundColor: {r: 0.9056604, g: 0.49971017, b: 0.2853684, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -883,9 +883,12 @@ MonoBehaviour:
   playerSpawnMethod: 1
   spawnPrefabs:
   - {fileID: 7314374459692372690, guid: eec702225189b42418c7a54388a3bfba, type: 3}
+  - {fileID: 2860834443129813646, guid: 4518f55db45776a44974fdb76ed891bd, type: 3}
   timeInterpolationGui: 0
   MatchActive: 0
   networkTimerPrefab: {fileID: 7314374459692372690, guid: eec702225189b42418c7a54388a3bfba, type: 3}
+  pickupManagerPrefab: {fileID: 2860834443129813646, guid: 4518f55db45776a44974fdb76ed891bd, type: 3}
+  Arena: {fileID: 0}
 --- !u!114 &1589366044991080400
 MonoBehaviour:
   m_ObjectHideFlags: 0
