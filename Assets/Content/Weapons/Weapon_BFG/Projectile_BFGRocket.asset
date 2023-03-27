@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e6d83aa9325c3f4d93186df40cee5be, type: 3}
-  m_Name: Projectile_Mortar
+  m_Name: Projectile_BFGRocket
   m_EditorClassIdentifier: 
-  guid: F48D30CBBED24E8899BE7566A21B82DC
-  speed: 8
-  damage: 1
-  lifeDuration: 6
+  guid: 926BE6F9B3EA4E389B16574A8B6000F9
+  speed: 6
+  damage: 20
+  lifeDuration: 3
   impactEffect: {fileID: 0}
   seeking: 0
   seekRate: 30
   splash: 1
-  splashPrefab: {fileID: 3014246923724280927, guid: 3b9fa3edfbf4ccd4ba56c3fcf2d539ee, type: 3}
-  splashRadius: 1
-  splashDamage: 10
-  splashForce: 2
+  splashPrefab: {fileID: 3014246923724280927, guid: 8039c1567adac094bbe38a8636a57407, type: 3}
+  splashRadius: 4
+  splashDamage: 30
+  splashForce: 3
   splashSpeed: 0.75
   pierce: 0
   pierceCount: 2

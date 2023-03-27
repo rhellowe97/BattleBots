@@ -6,6 +6,8 @@ namespace CapsuleHands.PlayerCore.Weapons
 {
     public class RocketWeapon : PlayerWeaponBase
     {
+        [SerializeField] private Vector3 targetOffset = Vector3.zero;
+
         public override void Shoot( Vector3 position, Vector3 direction, float passedTime )
         {
             base.Shoot( position, direction, passedTime );
@@ -15,7 +17,7 @@ namespace CapsuleHands.PlayerCore.Weapons
 
         public override Vector3 GetAimDirection( Player player )
         {
-            return player.GroundTarget.position - source.position;
+            return ( player.GroundTarget.position + targetOffset ) - source.position;
         }
     }
 }

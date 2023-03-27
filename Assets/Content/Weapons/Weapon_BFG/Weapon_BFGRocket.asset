@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 556725a6e64409e41830a30d2aad67e2, type: 3}
-  m_Name: Weapon_Rocket
+  m_Name: Weapon_BFGRocket
   m_EditorClassIdentifier: 
   guid: 07FB50118CAF4F369F962277875A618F
-  cooldown: 0.5
-  ammoCapactity: 4
+  cooldown: 1
+  ammoCapactity: 3
   fireMode: 0

@@ -14,13 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   guid: 926BE6F9B3EA4E389B16574A8B6000F9
   speed: 15
-  damage: 10
+  damage: 5
   lifeDuration: 3
   impactEffect: {fileID: 0}
   seeking: 0
   seekRate: 30
-  splash: 0
-  splashRadius: 3
+  splash: 1
+  splashPrefab: {fileID: 3014246923724280927, guid: 3b9fa3edfbf4ccd4ba56c3fcf2d539ee, type: 3}
+  splashRadius: 2
+  splashDamage: 10
+  splashForce: 2
+  splashSpeed: 0.75
   pierce: 0
   pierceCount: 2
   dot: 0
