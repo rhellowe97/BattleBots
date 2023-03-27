@@ -102,9 +102,11 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
         {
             PooledObject pooledObject = pooledInstance.GetComponent<PooledObject>();
 
-            if ( !pools.ContainsKey( pooledObject.Key ) )
+            if ( pooledObject == null || !pools.ContainsKey( pooledObject.Key ) )
             {
                 Debug.LogError( "Trying to return a non-pooled object!" );
+
+                Destroy( pooledInstance );
 
                 return;
             }
