@@ -1,10 +1,12 @@
 using CapsuleHands.PlayerCore;
+using CapsuleHands.PlayerCore.Weapons;
 using CapsuleHands.Singleton;
 using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CapsuleNetworkManager : NetworkManager
 {
@@ -14,11 +16,19 @@ public class CapsuleNetworkManager : NetworkManager
 
     public bool MatchActive = false;
 
+    public Action OnMatchActiveChanged;
+
     [SerializeField] private GameObject networkTimerPrefab;
 
     private NetworkTimer networkTimerInstance;
 
+    [SerializeField] private GameObject pickupManagerPrefab;
+
+    private PickupManager pickupManagerInstance;
+
     private Stack<int> availableColorIndices = new Stack<int>();
+
+    public Arena Arena;
 
     public override void OnStartServer()
     {
@@ -33,6 +43,10 @@ public class CapsuleNetworkManager : NetworkManager
 
         NetworkServer.Spawn( networkTimerInstance.gameObject );
 
+        pickupManagerInstance = Instantiate( pickupManagerPrefab ).GetComponent<PickupManager>();
+
+        NetworkServer.Spawn( pickupManagerInstance.gameObject );
+
         availableColorIndices.Clear();
 
         for ( int i = Constants.Arena.PlayerColors.Count - 1; i >= 0; i-- )
@@ -44,9 +58,46 @@ public class CapsuleNetworkManager : NetworkManager
         }
     }
 
+    public override void OnServerSceneChanged( string sceneName )
+    {
+        base.OnServerSceneChanged( sceneName );
+
+        Arena = FindObjectOfType<Arena>(); //TODO Better
+
+        
+    }
+
+    public override void OnServerChangeScene( string newSceneName )
+    {
+        base.OnServerChangeScene( newSceneName );
+
+        Projectile.ClearActive();
+    }
+
+    public override Transform GetStartPosition()
+    {
+        if ( Arena != null && Arena.PlayerSpawns.Count > 0 )
+        {
+            if ( playerSpawnMethod == PlayerSpawnMethod.Random )
+            {
+                return Arena.PlayerSpawns[UnityEngine.Random.Range( 0, Arena.PlayerSpawns.Count )];
+            }
+            else
+            {
+                Transform startPosition = Arena.PlayerSpawns[startPositionIndex];
+                startPositionIndex = ( startPositionIndex + 1 ) % Arena.PlayerSpawns.Count;
+                return startPosition;
+            }
+        }
+
+        return base.GetStartPosition();
+    }
+
     private void MatchManager_OnTimerComplete()
     {
         MatchActive = true;
+
+        OnMatchActiveChanged?.Invoke();
 
         foreach ( Player player in Players.Values )
         {
@@ -62,6 +113,8 @@ public class CapsuleNetworkManager : NetworkManager
             : Instantiate( playerPrefab );
 
         player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
+
+        DontDestroyOnLoad( player );
 
         NetworkServer.AddPlayerForConnection( conn, player );
 
@@ -113,11 +166,24 @@ public class CapsuleNetworkManager : NetworkManager
     {
         MatchActive = false;
 
+        OnMatchActiveChanged?.Invoke();
+
         yield return new WaitForSeconds( 3 );
 
         restarting = false;
 
-        SetupMatch();
+        //If Same Map vs Load?
+
+        foreach ( Player player in Players.Values )
+        {
+            player.OnServerHideForMapLoad();
+        }
+
+        readyCount = 0;
+
+        ServerChangeScene( SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );
+
+        // SetupMatch();
     }
 
     private void SetupMatch()
@@ -130,6 +196,23 @@ public class CapsuleNetworkManager : NetworkManager
         }
 
         StartMatch();
+    }
+
+    private int readyCount = 0;
+
+    public override void OnServerReady( NetworkConnectionToClient conn )
+    {
+        base.OnServerReady( conn );
+
+        if ( MatchActive )
+            return;
+
+        readyCount++;
+
+        if ( readyCount == Players.Count )
+        {
+            SetupMatch();
+        }
     }
 
     public override void OnServerDisconnect( NetworkConnectionToClient conn )
@@ -159,5 +242,12 @@ public class CapsuleNetworkManager : NetworkManager
     public void UpdateNetworkAddress( string address )
     {
         networkAddress = address;
+    }
+
+    public override void OnClientChangeScene( string newSceneName, SceneOperation sceneOperation, bool customHandling )
+    {
+        base.OnClientChangeScene( newSceneName, sceneOperation, customHandling );
+
+        Projectile.ClearActive();
     }
 }
