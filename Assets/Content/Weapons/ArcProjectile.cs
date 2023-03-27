@@ -6,6 +6,10 @@ namespace CapsuleHands.PlayerCore.Weapons
 {
     public class ArcProjectile : Projectile
     {
+        [SerializeField] private LineRenderer arcLine;
+
+        [SerializeField] private bool useLine = false;
+
         private Vector3[] waypoints;
 
         private float arcDistance = 0f;
@@ -23,6 +27,26 @@ namespace CapsuleHands.PlayerCore.Weapons
                 if ( indexFloor + 1 < waypoints.Length )
                 {
                     transform.LookAt( waypoints[indexFloor + 1] );
+                }
+
+                int positionCount = ( waypoints.Length - 1 ) - ( indexFloor + 1 );
+
+                if ( positionCount > 0 )
+                {
+                    arcLine.positionCount = positionCount;
+
+                    arcLine.SetPosition( 0, transform.position );
+
+                    for ( int i = 1; i < positionCount; i++ )
+                    {
+                        int waypointIndex = indexFloor + i;
+
+                        arcLine.SetPosition( i, waypoints[waypointIndex] );
+                    }
+                }
+                else if ( arcLine.enabled )
+                {
+                    arcLine.enabled = false;
                 }
 
                 arcTravelled += distanceChunk;
@@ -70,6 +94,9 @@ namespace CapsuleHands.PlayerCore.Weapons
                     projectileInstance.Configure( owner, targetLayerMask );
 
                     projectileInstance.Active = true;
+
+                    if ( projectileInstance.useLine )
+                        projectileInstance.arcLine.enabled = true;
                 }
 
                 return projectileInstance;

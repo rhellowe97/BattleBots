@@ -15,6 +15,8 @@ namespace CapsuleHands.PlayerCore.Weapons
 
         [SerializeField] protected PooledEffect impactEffectPrefab;
 
+        [SerializeField] protected bool rayMarchDetection = true;
+
         protected Transform aimTarget;
 
         protected float lifeTimer = 0f;
@@ -81,39 +83,21 @@ namespace CapsuleHands.PlayerCore.Weapons
                 distanceChunk = currentSpeed * Time.fixedDeltaTime;
             }
 
-            Vector3 rayStartPosition = transform.position - ( transform.forward * Mathf.Min( TravelledDistance, distanceChunk ) );
-
-            if ( Physics.Raycast( rayStartPosition, transform.forward, out collisionRayHit, 2 * distanceChunk, hittableMask, QueryTriggerInteraction.Ignore ) )
+            if ( rayMarchDetection )
             {
-                if ( collisionRayHit.collider.TryGetComponent( out IHittable hittable ) )
+                Vector3 rayStartPosition = transform.position - ( transform.forward * Mathf.Min( TravelledDistance, distanceChunk ) );
+
+                if ( Physics.Raycast( rayStartPosition, transform.forward, out collisionRayHit, 2 * distanceChunk, hittableMask, QueryTriggerInteraction.Ignore ) )
                 {
-                    if ( hittable != owner )
-                        hittable.GetHit( Data.Damage, 1f, transform.forward );
+                    OnContact( collisionRayHit.collider, collisionRayHit.point, collisionRayHit.normal );
                 }
-                else if ( collisionRayHit.collider.attachedRigidbody != null )
-                {
-                    if ( collisionRayHit.collider.attachedRigidbody.TryGetComponent( out IHittable rbHittable ) )
-                    {
-                        if ( rbHittable != owner )
-                            rbHittable.GetHit( Data.Damage, 1f, transform.forward );
-                    }
-                }
-
-                if ( impactEffectPrefab != null )
-                {
-                    PooledEffect impactEffectInstance = ObjectPoolManager.Instance.GetPooled( impactEffectPrefab.gameObject ).GetComponent<PooledEffect>();
-
-                    impactEffectInstance.transform.position = collisionRayHit.point;
-
-                    impactEffectInstance.transform.rotation = Quaternion.LookRotation( collisionRayHit.normal, Vector3.up );
-
-                    impactEffectInstance.Play();
-                }
-
-                if ( ObjectPoolManager.Exists )
-                    ObjectPoolManager.Instance.ReturnToPool( gameObject );
                 else
-                    Destroy( gameObject );
+                {
+                    ProcessMovement();
+
+                    if ( TravelledDistance < distanceChunk )
+                        TravelledDistance += distanceChunk;
+                }
             }
             else
             {
@@ -131,6 +115,56 @@ namespace CapsuleHands.PlayerCore.Weapons
                     ObjectPoolManager.Instance.ReturnToPool( gameObject );
                 else
                     Destroy( gameObject );
+            }
+        }
+
+        protected virtual void OnContact( Collider collider, Vector3 contactPoint, Vector3 contactNormal )
+        {
+            if ( collider.TryGetComponent( out IHittable hittable ) )
+            {
+                if ( hittable != owner )
+                    hittable.GetHit( Data.Damage, 1f, transform.forward );
+                else
+                    return;
+            }
+            else if ( collider.attachedRigidbody != null )
+            {
+                if ( collider.attachedRigidbody.TryGetComponent( out IHittable rbHittable ) )
+                {
+                    if ( rbHittable != owner )
+                        rbHittable.GetHit( Data.Damage, 1f, transform.forward );
+                    else
+                        return;
+                }
+            }
+
+            if ( impactEffectPrefab != null )
+            {
+                PooledEffect impactEffectInstance = ObjectPoolManager.Instance.GetPooled( impactEffectPrefab.gameObject ).GetComponent<PooledEffect>();
+
+                impactEffectInstance.transform.position = contactPoint;
+
+                impactEffectInstance.transform.rotation = Quaternion.LookRotation( contactNormal, Vector3.up );
+
+                impactEffectInstance.Play();
+            }
+
+            if ( Data.Splash )
+            {
+                Explosion.Spawn( Data.SplashPrefab, transform.position, Data.SplashRadius, Data.SplashDamage, Data.SplashForce, Data.SplashSpeed );
+            }
+
+            if ( ObjectPoolManager.Exists )
+                ObjectPoolManager.Instance.ReturnToPool( gameObject );
+            else
+                Destroy( gameObject );
+        }
+
+        protected virtual void OnTriggerEnter( Collider collider )
+        {
+            if ( !rayMarchDetection && !collider.isTrigger && ( hittableMask.value & ( 1 << collider.gameObject.layer ) ) > 0 )
+            {
+                OnContact( collider, transform.position, Vector3.up );
             }
         }
 

@@ -32,8 +32,28 @@ public class ProjectileData : ScriptableData<ProjectileData>
 
     [BoxGroup( "Splash" )]
     [ShowIf( nameof( splash ) )]
+    [SerializeField] protected GameObject splashPrefab;
+    public GameObject SplashPrefab => splashPrefab;
+
+    [BoxGroup( "Splash" )]
+    [ShowIf( nameof( splash ) )]
     [SerializeField] protected float splashRadius = 3f;
     public float SplashRadius => splashRadius;
+
+    [BoxGroup( "Splash" )]
+    [ShowIf( nameof( splash ) )]
+    [SerializeField] protected int splashDamage = 10;
+    public int SplashDamage => splashDamage;
+
+    [BoxGroup( "Splash" )]
+    [ShowIf( nameof( splash ) )]
+    [SerializeField] protected float splashForce = 0.5f;
+    public float SplashForce => splashForce;
+
+    [BoxGroup( "Splash" )]
+    [ShowIf( nameof( splash ) )]
+    [SerializeField] protected float splashSpeed = 0.5f;
+    public float SplashSpeed => splashSpeed;
 
     [BoxGroup( "Pierce" )]
     [HideIf( nameof( splash ) )]
