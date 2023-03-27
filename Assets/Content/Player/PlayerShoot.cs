@@ -48,6 +48,16 @@ namespace CapsuleHands.PlayerCore
             {
                 weapon.Configure( player, cachedHitMask );
             }
+
+            player.OnPlayerReset += Player_OnPlayerReset;
+        }
+
+        private void Player_OnPlayerReset()
+        {
+            if ( isServer )
+                ChangeWeapon( 0 );
+
+            CurrentWeapon.Deactivate();
         }
 
         [Server]
@@ -67,6 +77,9 @@ namespace CapsuleHands.PlayerCore
 
         private void OnWeaponChanged( int oldIndex, int newIndex )
         {
+            if ( !isLocalPlayer )
+                return;
+
             weapons[oldIndex].Eject();
 
             if ( weapons[oldIndex].Active )
@@ -164,7 +177,7 @@ namespace CapsuleHands.PlayerCore
         [Command]
         private void ServerActivate( float networkTime, int index )
         {
-            float passedTime = ( float ) ( NetworkTime.time - networkTime );
+            float passedTime = (float)( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME / 2f, passedTime );
 
@@ -174,7 +187,7 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc( includeOwner = false )]
         private void ClientActivate( float networkTime, int index )
         {
-            float passedTime = ( float ) ( NetworkTime.time - networkTime );
+            float passedTime = (float)( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME, passedTime );
 
@@ -184,7 +197,7 @@ namespace CapsuleHands.PlayerCore
         [Command]
         private void ServerRelease( float networkTime, int index )
         {
-            float passedTime = ( float ) ( NetworkTime.time - networkTime );
+            float passedTime = (float)( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME / 2f, passedTime );
 
@@ -194,7 +207,7 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc( includeOwner = false )]
         private void ClientRelease( float networkTime, int index )
         {
-            float passedTime = ( float ) ( NetworkTime.time - networkTime );
+            float passedTime = (float)( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME, passedTime );
 
@@ -204,7 +217,7 @@ namespace CapsuleHands.PlayerCore
         [Command]
         private void ServerShoot( Vector3 position, Vector3 direction, float networkTime, int index )
         {
-            float passedTime = ( float ) ( NetworkTime.time - networkTime );
+            float passedTime = (float)( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME / 2f, passedTime );
 
@@ -222,7 +235,7 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc( includeOwner = false )]
         private void ClientShoot( Vector3 position, Vector3 direction, float networkTime, int index )
         {
-            float passedTime = ( float ) ( NetworkTime.time - networkTime );
+            float passedTime = (float)( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME, passedTime );
 
@@ -237,7 +250,7 @@ namespace CapsuleHands.PlayerCore
 
             CurrentWeapon.Shoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), 0f );
 
-            ServerShoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), ( float ) NetworkTime.time, weaponIndex );
+            ServerShoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), (float)NetworkTime.time, weaponIndex );
         }
 
         private void ShootAction_Performed( InputAction.CallbackContext context )
@@ -254,7 +267,7 @@ namespace CapsuleHands.PlayerCore
                     {
                         CurrentWeapon.Activate( 0f );
 
-                        ServerActivate( ( float ) NetworkTime.time, weaponIndex );
+                        ServerActivate( (float)NetworkTime.time, weaponIndex );
                     }
                 }
             }
@@ -268,7 +281,7 @@ namespace CapsuleHands.PlayerCore
                 {
                     CurrentWeapon.Release( 0f );
 
-                    ServerRelease( ( float ) NetworkTime.time, weaponIndex );
+                    ServerRelease( (float)NetworkTime.time, weaponIndex );
 
                     if ( CurrentWeapon.Data.FireMode == WeaponData.WeaponFireMode.Release && CurrentWeapon.CanShoot() )
                     {

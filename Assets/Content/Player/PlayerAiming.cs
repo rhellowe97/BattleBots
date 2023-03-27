@@ -42,6 +42,13 @@ namespace CapsuleHands.PlayerCore
 
         private Vector2 controllerAimCursorPosition = Vector2.zero;
 
+        public override void OnStartClient()
+        {
+            base.OnStartClient();
+
+            elevationAimTarget.gameObject.SetActive( false );
+        }
+
         protected override void LocalPlayerStart()
         {
             base.LocalPlayerStart();
@@ -87,6 +94,8 @@ namespace CapsuleHands.PlayerCore
         private void ElevationAction_Performed( InputAction.CallbackContext context )
         {
             controllerAimCursorPosition = player.MainCamera.WorldToScreenPoint( player.transform.position + player.transform.forward * 5f );
+
+            elevationAimTarget.gameObject.SetActive( true );
         }
 
         private void ElevationAction_Canceled( InputAction.CallbackContext context )
@@ -121,13 +130,15 @@ namespace CapsuleHands.PlayerCore
                     if ( Physics.Raycast( player.MainCamera.ScreenPointToRay( lookInput ), out raycastHit, 100f, currentMask ) )
                     {
                         lookTargetLocation = raycastHit.point;
+
+                        elevationAimTarget.position = lookTargetLocation;
                     }
                 }
                 else
                 {
                     if ( ElevatedAiming )
                     {
-                        controllerAimCursorPosition += ( Vector2 ) lookInput * 20f;
+                        controllerAimCursorPosition += (Vector2)lookInput * 20f;
 
                         controllerAimCursorPosition.x = Mathf.Clamp( controllerAimCursorPosition.x, 0, Screen.width );
 

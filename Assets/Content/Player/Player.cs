@@ -145,6 +145,11 @@ namespace CapsuleHands.PlayerCore
                 InitializePlayerData( GameManager.Instance.PlayerData );
 
                 spawnLocation = transform.position;
+
+                if ( Camera.main != null ) //TODO, move to scene load logic
+                {
+                    Camera.main.gameObject.SetActive( false );
+                }
             }
 
             CameraManager.Instance.SubscriptionUpdate( this, true );
@@ -232,15 +237,20 @@ namespace CapsuleHands.PlayerCore
         public void GetHit( int damage, float forceScale, Vector3 hitDirection )
         {
             if ( isServer )
-                this.damage += damage;
+                UpdateDamage( damage );
 
             if ( isLocalPlayer )
             {
-                if ( hitDirection.sqrMagnitude > 1 )
+                if ( hitDirection.sqrMagnitude != 1 )
                     hitDirection.Normalize();
 
                 Rigidbody.AddForce( forceScale * ( Damage / 4f ) * hitDirection, ForceMode.Impulse );
             }
+        }
+
+        public void UpdateDamage( float delta )
+        {
+            damage = Mathf.Max( 0, damage + delta );
         }
 
         private void OnDamageUpdated( float oldDamage, float newDamage )
@@ -263,17 +273,21 @@ namespace CapsuleHands.PlayerCore
             active = isActive;
         }
 
-        private Action OnPlayerReset;
+        public Action OnPlayerReset;
 
+        [Server]
         public void OnServerPlayerReset()
         {
+            Debug.Log( "Reset" );
+
             ToggleActive( false );
 
             damage = 0;
 
             eliminated = false;
 
-            OnPlayerReset?.Invoke();
+            if ( isServerOnly )
+                OnPlayerReset?.Invoke();
 
             OnClientPlayerReset();
         }
@@ -281,13 +295,15 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc]
         public void OnClientPlayerReset()
         {
+            Debug.Log( "Client Reset" );
+
             graphicsRoot.gameObject.SetActive( true );
 
             if ( isLocalPlayer )
             {
                 Rigidbody.velocity = Vector3.zero;
 
-                transform.position = spawnLocation;
+                transform.position = CapsuleNetworkManager.Instance.GetStartPosition().position;
 
                 Vector3 pos = transform.position;
 
@@ -333,6 +349,14 @@ namespace CapsuleHands.PlayerCore
                 Rigidbody.isKinematic = true;
 
             CameraManager.Instance.SubscriptionUpdate( this, false );
+        }
+
+        [Server]
+        public void OnServerHideForMapLoad()
+        {
+            ToggleActive( false );
+
+            OnClientPlayerEliminated();
         }
 
         private void OnDestroy()
