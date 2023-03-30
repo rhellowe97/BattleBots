@@ -127,7 +127,7 @@ namespace CapsuleHands.PlayerCore
 
                 if ( PlayerInputManager.Instance.IsKeyboard )
                 {
-                    if ( Physics.Raycast( player.MainCamera.ScreenPointToRay( lookInput ), out raycastHit, 100f, currentMask ) )
+                    if ( Physics.Raycast( player.MainCamera.ScreenPointToRay( lookInput ), out raycastHit, 100f, currentMask, QueryTriggerInteraction.Ignore ) )
                     {
                         lookTargetLocation = raycastHit.point;
 
@@ -138,13 +138,13 @@ namespace CapsuleHands.PlayerCore
                 {
                     if ( ElevatedAiming )
                     {
-                        controllerAimCursorPosition += (Vector2)lookInput * 20f;
+                        controllerAimCursorPosition += ( Vector2 ) lookInput * 20f;
 
                         controllerAimCursorPosition.x = Mathf.Clamp( controllerAimCursorPosition.x, 0, Screen.width );
 
                         controllerAimCursorPosition.y = Mathf.Clamp( controllerAimCursorPosition.y, 0, Screen.height );
 
-                        if ( Physics.Raycast( player.MainCamera.ScreenPointToRay( controllerAimCursorPosition ), out raycastHit, 100f, currentMask ) )
+                        if ( Physics.Raycast( player.MainCamera.ScreenPointToRay( controllerAimCursorPosition ), out raycastHit, 100f, currentMask, QueryTriggerInteraction.Ignore ) )
                         {
                             lookTargetLocation = raycastHit.point;
 

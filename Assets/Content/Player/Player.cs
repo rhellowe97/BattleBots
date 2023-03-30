@@ -22,7 +22,7 @@ namespace CapsuleHands.PlayerCore
 
         [SerializeField] private Transform graphicsRoot;
 
-        [SerializeField] private MeshRenderer primaryRenderer;
+        [SerializeField] private SkinnedMeshRenderer primaryRenderer;
 
         [SerializeField] private float hoverHeight;
         public float HoverHeight => hoverHeight;
@@ -87,7 +87,7 @@ namespace CapsuleHands.PlayerCore
 
         public void GetAimTarget( bool elevation )
         {
-            float groundToAimDist = hoverHeight + Gun.localPosition.y;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
+            float groundToAimDist = hoverHeight + Gun.localPosition.y + 0.15f;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
             //( MainCamera.transform.position - groundTarget.position ).normalized
             AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( ( transform.position.y - groundToAimDist ) - groundTarget.position.y, 0f, 1f ) ) : 0f );
         }
@@ -278,8 +278,6 @@ namespace CapsuleHands.PlayerCore
         [Server]
         public void OnServerPlayerReset()
         {
-            Debug.Log( "Reset" );
-
             ToggleActive( false );
 
             damage = 0;
@@ -295,8 +293,6 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc]
         public void OnClientPlayerReset()
         {
-            Debug.Log( "Client Reset" );
-
             graphicsRoot.gameObject.SetActive( true );
 
             if ( isLocalPlayer )
