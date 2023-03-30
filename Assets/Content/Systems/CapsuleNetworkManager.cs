@@ -10,7 +10,7 @@ using UnityEngine.SceneManagement;
 
 public class CapsuleNetworkManager : NetworkManager
 {
-    public static CapsuleNetworkManager Instance => (CapsuleNetworkManager)singleton;
+    public static CapsuleNetworkManager Instance => ( CapsuleNetworkManager ) singleton;
 
     public Dictionary<NetworkConnection, Player> Players = new Dictionary<NetworkConnection, Player>();
 
@@ -62,9 +62,7 @@ public class CapsuleNetworkManager : NetworkManager
     {
         base.OnServerSceneChanged( sceneName );
 
-        Arena = FindObjectOfType<Arena>(); //TODO Better
-
-        
+        Arena = FindObjectOfType<Arena>(); //TODO Better    
     }
 
     public override void OnServerChangeScene( string newSceneName )
@@ -133,17 +131,17 @@ public class CapsuleNetworkManager : NetworkManager
             {
                 playerComp.ToggleActive( true );
             }
-        }
 
-        if ( Players.Count == 2 )
-        {
-            SetupMatch();
+            if ( Players.Count == 2 )
+            {
+                SetupMatch();
+            }
         }
     }
 
     private void StartMatch()
     {
-        networkTimerInstance.ServerStartCountdown( 3f, (float)NetworkTime.time );
+        networkTimerInstance.ServerStartCountdown( 3f, ( float ) NetworkTime.time );
     }
 
     private int eliminationCount = 0;
@@ -181,7 +179,7 @@ public class CapsuleNetworkManager : NetworkManager
 
         readyCount = 0;
 
-        ServerChangeScene( SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );
+        ServerChangeScene( SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );//; SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );
 
         // SetupMatch();
     }
@@ -208,6 +206,8 @@ public class CapsuleNetworkManager : NetworkManager
             return;
 
         readyCount++;
+
+        Debug.Log( readyCount + " " + Players.Count );
 
         if ( readyCount == Players.Count )
         {
@@ -249,5 +249,12 @@ public class CapsuleNetworkManager : NetworkManager
         base.OnClientChangeScene( newSceneName, sceneOperation, customHandling );
 
         Projectile.ClearActive();
+    }
+
+    public override void OnClientSceneChanged()
+    {
+        base.OnClientSceneChanged();
+
+        Arena = FindObjectOfType<Arena>();
     }
 }
