@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Weapon_Mortar
   m_EditorClassIdentifier: 
   guid: BEDBFBAEDB3E4DF0B3F6FFB4CE88CC65
-  cooldown: 0.3
+  cooldown: 0.2
   ammoCapactity: 12
   fireMode: 1

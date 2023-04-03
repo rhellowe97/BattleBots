@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Projectile_Mortar
   m_EditorClassIdentifier: 
   guid: F48D30CBBED24E8899BE7566A21B82DC
-  speed: 8
+  speed: 12
   damage: 1
   lifeDuration: 6
   impactEffect: {fileID: 0}
@@ -21,7 +21,7 @@ MonoBehaviour:
   seekRate: 30
   splash: 1
   splashPrefab: {fileID: 3014246923724280927, guid: 3b9fa3edfbf4ccd4ba56c3fcf2d539ee, type: 3}
-  splashRadius: 1
+  splashRadius: 1.5
   splashDamage: 10
   splashForce: 2
   splashSpeed: 0.75
