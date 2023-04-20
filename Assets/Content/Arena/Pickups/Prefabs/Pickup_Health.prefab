@@ -134,7 +134,7 @@ MonoBehaviour:
   persist: 0
   maxSize: 0
   pickupEffect: {fileID: 0}
-  healthRestored: 30
+  healthRestored: 15
 --- !u!4 &2447385161669457765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1059693410125461022, guid: 6f819b35422da5340a8ffe5a889144a3, type: 3}

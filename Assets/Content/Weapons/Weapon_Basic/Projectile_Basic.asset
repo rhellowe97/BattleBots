@@ -13,14 +13,18 @@ MonoBehaviour:
   m_Name: Projectile_Basic
   m_EditorClassIdentifier: 
   guid: 6E687543E51E45D7987B61A381FBDB5A
-  speed: 20
-  damage: 2
+  speed: 25
+  damage: 4
   lifeDuration: 3
   impactEffect: {fileID: 0}
   seeking: 0
   seekRate: 30
   splash: 0
+  splashPrefab: {fileID: 0}
   splashRadius: 3
+  splashDamage: 10
+  splashForce: 0.5
+  splashSpeed: 0.5
   pierce: 0
   pierceCount: 2
   dot: 0
