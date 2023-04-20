@@ -407,7 +407,7 @@ namespace Mirror
         }
 
         /// <summary>Starts a network "host" - a server and client in the same application.</summary>
-        public void StartHost()
+        public virtual void StartHost()
         {
             if (NetworkServer.active || NetworkClient.active)
             {

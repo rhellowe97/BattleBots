@@ -2,6 +2,7 @@ using CapsuleHands.PlayerCore;
 using CapsuleHands.PlayerCore.Weapons;
 using CapsuleHands.Singleton;
 using Mirror;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +30,35 @@ public class CapsuleNetworkManager : NetworkManager
     private Stack<int> availableColorIndices = new Stack<int>();
 
     public Arena Arena;
+
+    public enum MapSelectMode
+    {
+        Random,
+        Linear
+    }
+
+    [BoxGroup( "Level Rotation" )]
+    [SerializeField] private MapSelectMode mapMode = MapSelectMode.Random;
+
+    [BoxGroup( "Level Rotation" )]
+    [Scene]
+    [SerializeField] private List<string> mapRotationScenes = new List<string>();
+
+    private int arenaLoaded = 0;
+
+    public override void StartHost()
+    {
+        arenaLoaded = 0;
+
+        if ( mapMode == MapSelectMode.Random && mapRotationScenes.Count > 0 )
+        {
+            arenaLoaded = UnityEngine.Random.Range( 0, mapRotationScenes.Count );
+        }
+
+        onlineScene = mapRotationScenes[arenaLoaded];
+
+        base.StartHost();
+    }
 
     public override void OnStartServer()
     {
@@ -179,7 +209,26 @@ public class CapsuleNetworkManager : NetworkManager
 
         readyCount = 0;
 
-        ServerChangeScene( SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );//; SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );
+        if ( mapMode == MapSelectMode.Random )
+        {
+            int newMap = UnityEngine.Random.Range( 0, mapRotationScenes.Count );
+
+            while ( mapRotationScenes.Count > 1 && newMap == arenaLoaded )
+            {
+                newMap = UnityEngine.Random.Range( 0, mapRotationScenes.Count );
+            }
+
+            arenaLoaded = newMap;
+        }
+        else
+        {
+            arenaLoaded++;
+
+            if ( arenaLoaded >= mapRotationScenes.Count )
+                arenaLoaded = 0;
+        }
+
+        ServerChangeScene( mapRotationScenes[arenaLoaded] );//; SceneManager.GetActiveScene().name == "Arena_Prototype" ? "Level01" : "Arena_Prototype" );
 
         // SetupMatch();
     }
@@ -206,8 +255,6 @@ public class CapsuleNetworkManager : NetworkManager
             return;
 
         readyCount++;
-
-        Debug.Log( readyCount + " " + Players.Count );
 
         if ( readyCount == Players.Count )
         {
