@@ -81,7 +81,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242011937821786747}
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 7.500001, y: 10.606604, z: -7.500001}
+  m_LocalPosition: {x: 7.5000005, y: 10.606602, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -442,7 +442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589366044163202475}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.21701, y: 6.5471215, z: -10.369627}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -581,6 +581,7 @@ GameObject:
   - component: {fileID: 1589366044651888405}
   - component: {fileID: 1589366044651888407}
   - component: {fileID: 1589366044651888404}
+  - component: {fileID: 2036546335159045885}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -658,6 +659,23 @@ MonoBehaviour:
   m_MaximumFOV: 45
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
+--- !u!114 &2036546335159045885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589366044651888410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 1
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1589366044672880919
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +701,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589366044672880919}
   m_LocalRotation: {x: 0.35355338, y: -0.35355338, z: 0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: 7.500001, y: 10.606604, z: -7.500001}
+  m_LocalPosition: {x: 7.5000005, y: 10.606602, z: -7.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -845,6 +863,12 @@ MonoBehaviour:
   networkTimerPrefab: {fileID: 7314374459692372690, guid: eec702225189b42418c7a54388a3bfba, type: 3}
   pickupManagerPrefab: {fileID: 2860834443129813646, guid: 4518f55db45776a44974fdb76ed891bd, type: 3}
   Arena: {fileID: 0}
+  mapMode: 0
+  mapRotationScenes:
+  - Arena_Prototype
+  - Level01
+  - Level01-2
+  - Level01-3
 --- !u!114 &1589366044991080400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1254,6 +1278,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPersistent: 1
+  mainVirtualCamera: {fileID: 1589366044672880913}
   targetGroup: {fileID: 1589366045449496081}
 --- !u!1 &1695503895678946176
 GameObject:

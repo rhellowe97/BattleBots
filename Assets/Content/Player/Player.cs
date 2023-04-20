@@ -16,6 +16,8 @@ namespace CapsuleHands.PlayerCore
 
         public CapsuleCollider Collider { get; private set; }
 
+        public Animator Animator { get; private set; }
+
         public PlayerData Data { get; private set; }
 
         [SerializeField] private bool startActive = false;
@@ -24,10 +26,12 @@ namespace CapsuleHands.PlayerCore
 
         [SerializeField] private SkinnedMeshRenderer primaryRenderer;
 
+        private MaterialPropertyBlock mpb;
+
+        [SerializeField] private ParticleSystem knockbackSmoke;
+
         [SerializeField] private float hoverHeight;
         public float HoverHeight => hoverHeight;
-
-        private MaterialPropertyBlock mpb;
 
         [SyncVar( hook = nameof( OnNameUpdated ) )]
         private string playerName = "Player";
@@ -45,6 +49,8 @@ namespace CapsuleHands.PlayerCore
         [SyncVar( hook = nameof( OnDamageUpdated ) )]
         private float damage = 0;
         public float Damage => damage;
+
+        private Dictionary<object, float> mitigationSources = new Dictionary<object, float>();
 
         [SyncVar( hook = nameof( OnColorUpdated ) )]
         private int playerColor = 0;
@@ -92,12 +98,13 @@ namespace CapsuleHands.PlayerCore
             AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( ( transform.position.y - groundToAimDist ) - groundTarget.position.y, 0f, 1f ) ) : 0f );
         }
 
-
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
 
             Collider = GetComponent<CapsuleCollider>();
+
+            Animator = graphicsRoot.GetComponentInChildren<Animator>();
 
             MainCamera = CameraManager.Instance.GetComponentInChildren<Camera>();
 
@@ -237,14 +244,55 @@ namespace CapsuleHands.PlayerCore
         public void GetHit( int damage, float forceScale, Vector3 hitDirection )
         {
             if ( isServer )
+            {
                 UpdateDamage( damage );
+
+                if ( forceScale * ( Damage / 4 ) > 20f )
+                {
+                    PlayKnockbackSmoke();
+                }
+            }
 
             if ( isLocalPlayer )
             {
                 if ( hitDirection.sqrMagnitude != 1 )
                     hitDirection.Normalize();
 
-                Rigidbody.AddForce( forceScale * ( Damage / 4f ) * hitDirection, ForceMode.Impulse );
+                float totalMitigation = 0f;
+
+                if ( mitigationSources.Count > 0 )
+                {
+                    foreach ( float mitValue in mitigationSources.Values )
+                        totalMitigation += mitValue;
+                }
+
+                float knockbackForce = forceScale * ( Damage / 4f );
+
+                if ( knockbackForce > 15f )
+                {
+                    CameraManager.Instance.ApplyShake( Mathf.Lerp( 1, 4, ( knockbackForce - 15f ) / 30f ), 0.5f );
+                }
+
+                Rigidbody.AddForce( ( knockbackForce * hitDirection ) * ( 1 - totalMitigation ), ForceMode.Impulse );
+            }
+        }
+
+        public void ToggleMitigationSource( bool isAdding, object source, float mitPercentage )
+        {
+            if ( isAdding )
+            {
+                if ( mitigationSources.ContainsKey( source ) )
+                {
+                    mitigationSources[source] = mitPercentage;
+                }
+                else
+                {
+                    mitigationSources.Add( source, mitPercentage );
+                }
+            }
+            else if ( mitigationSources.ContainsKey( source ) )
+            {
+                mitigationSources.Remove( source );
             }
         }
 
@@ -355,6 +403,15 @@ namespace CapsuleHands.PlayerCore
             OnClientPlayerEliminated();
         }
 
+        [ClientRpc]
+        private void PlayKnockbackSmoke()
+        {
+            if ( knockbackSmoke != null )
+            {
+                knockbackSmoke.Play();
+            }
+        }
+
         private void OnDestroy()
         {
             if ( PlayerUIManager.Exists )
@@ -374,5 +431,12 @@ namespace CapsuleHands.PlayerCore
             Gizmos.DrawSphere( GroundTarget.position, 0.3f );
         }
 #endif
+    }
+
+    public class PlayerAnimationParams
+    {
+        public const string MoveX = "MoveX";
+
+        public const string MoveZ = "MoveZ";
     }
 }
