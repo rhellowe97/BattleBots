@@ -82,7 +82,6 @@ namespace CapsuleHands.PlayerCore
                 }
 
                 player.Rigidbody.AddForce( moveVector * acceleration, ForceMode.VelocityChange );
-                //new Vector3( player.Collider.radius * 0.75f, player.Collider.radius * 0.75f, 0.1f )
 
 
                 if ( Physics.Raycast( player.transform.position + Vector3.up * 0.1f, Vector3.down, out raycastHitResult, player.HoverHeight + 0.5f, Constants.Arena.EnvironmentLayerMask, QueryTriggerInteraction.Ignore ) )
@@ -97,6 +96,11 @@ namespace CapsuleHands.PlayerCore
                 {
                     player.Rigidbody.AddForce( Vector3.down * 9.81f * gravityScale );
                 }
+
+                Vector3 localVel = transform.InverseTransformVector( player.Rigidbody.velocity );
+
+                player.Animator.SetFloat( PlayerAnimationParams.MoveX, localVel.x / moveSpeed, 0.1f, Time.fixedDeltaTime );
+                player.Animator.SetFloat( PlayerAnimationParams.MoveZ, localVel.z / moveSpeed, 0.1f, Time.fixedDeltaTime );
             }
         }
     }
