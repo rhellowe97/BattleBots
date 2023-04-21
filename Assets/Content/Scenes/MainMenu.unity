@@ -3440,9 +3440,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Singletons
       objectReference: {fileID: 0}
+    - target: {fileID: 1589366044672880918, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.606603
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589366044672880918, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1589366045596443762, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 229f704698f03c54bab232375dee4bd6, type: 3}
     - target: {fileID: 4010729192690662885, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850317416574922901, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.606603
+      objectReference: {fileID: 0}
+    - target: {fileID: 4850317416574922901, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f2e2c7ac06874e43a6390b3d2c71886, type: 3}
