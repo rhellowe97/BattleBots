@@ -316,6 +316,17 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""action"": ""ElevationAim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9505dd7c-2933-4618-9239-f798a42c4bb6"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ElevationAim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
