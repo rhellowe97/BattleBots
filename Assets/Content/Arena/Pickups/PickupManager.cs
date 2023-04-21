@@ -14,21 +14,21 @@ public class PickupManager : NetworkBehaviour
 
     [SerializeField] private float maxSpawnTime = 15f;
 
-    public PickupBase GetPickup()
+    public int GetPickup()
     {
         float randomWeight = Random.Range( 0, pickupChanceSum );
 
-        foreach ( PickupBase pickup in pickups )
+        for ( int i = 0; i < pickups.Count; i++ )
         {
-            randomWeight -= pickup.SpawnWeight;
+            randomWeight -= pickups[i].SpawnWeight;
 
             if ( randomWeight < 0 )
             {
-                return pickup;
+                return i;
             }
         }
 
-        return null;
+        return 0;
     }
 
     private List<int> openSpawns = new List<int>();
@@ -100,7 +100,7 @@ public class PickupManager : NetworkBehaviour
                 {
                     int pickupSpawnIndex = Random.Range( 0, openSpawns.Count );
 
-                    ClientSpawnPickup( Random.Range( 0, pickups.Count ), openSpawns[pickupSpawnIndex], CapsuleNetworkManager.Instance.Arena.PickupSpawns[openSpawns[pickupSpawnIndex]].position, ( float ) NetworkTime.time );
+                    ClientSpawnPickup( GetPickup(), openSpawns[pickupSpawnIndex], CapsuleNetworkManager.Instance.Arena.PickupSpawns[openSpawns[pickupSpawnIndex]].position, ( float ) NetworkTime.time );
 
                     openSpawns.RemoveAt( pickupSpawnIndex );
                 }
@@ -123,7 +123,7 @@ public class PickupManager : NetworkBehaviour
     [ClientRpc]
     private void ClientSpawnPickup( int pickupIndex, int spawnIndex, Vector3 spawnPosition, float networkTime )
     {
-        PickupBase pickupPrefab = GetPickup();
+        PickupBase pickupPrefab = pickups[pickupIndex];
 
         if ( pickupPrefab != null )
         {
