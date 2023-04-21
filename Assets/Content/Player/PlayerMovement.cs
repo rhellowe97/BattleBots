@@ -81,7 +81,7 @@ namespace CapsuleHands.PlayerCore
                         moveVector -= Vector3.Project( moveVector, vel );
                 }
 
-                player.Rigidbody.AddForce( moveVector * acceleration, ForceMode.VelocityChange );
+                player.Rigidbody.AddForce( moveVector * player.BotControl * acceleration, ForceMode.VelocityChange );
 
 
                 if ( Physics.Raycast( player.transform.position + Vector3.up * 0.1f, Vector3.down, out raycastHitResult, player.HoverHeight + 0.5f, Constants.Arena.EnvironmentLayerMask, QueryTriggerInteraction.Ignore ) )

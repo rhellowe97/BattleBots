@@ -14,6 +14,8 @@ namespace CapsuleHands.PlayerCore
     {
         public Rigidbody Rigidbody { get; private set; }
 
+        private float defaultDrag = 0f;
+
         public CapsuleCollider Collider { get; private set; }
 
         public Animator Animator { get; private set; }
@@ -28,10 +30,14 @@ namespace CapsuleHands.PlayerCore
 
         private MaterialPropertyBlock mpb;
 
-        [SerializeField] private ParticleSystem knockbackSmoke;
+        [SerializeField] private ParticleSystem knockbackSmokeFX;
+
+        [SerializeField] private ParticleSystem playerHitFX;
 
         [SerializeField] private float hoverHeight;
         public float HoverHeight => hoverHeight;
+
+        public float BotControl { get; private set; } = 1f;
 
         [SyncVar( hook = nameof( OnNameUpdated ) )]
         private string playerName = "Player";
@@ -101,6 +107,8 @@ namespace CapsuleHands.PlayerCore
         private void Awake()
         {
             Rigidbody = GetComponent<Rigidbody>();
+
+            defaultDrag = Rigidbody.drag;
 
             Collider = GetComponent<CapsuleCollider>();
 
@@ -247,6 +255,8 @@ namespace CapsuleHands.PlayerCore
             {
                 UpdateDamage( damage );
 
+                PlayPlayerHit();
+
                 if ( forceScale * ( Damage / 4 ) > 20f )
                 {
                     PlayKnockbackSmoke();
@@ -266,15 +276,50 @@ namespace CapsuleHands.PlayerCore
                         totalMitigation += mitValue;
                 }
 
-                float knockbackForce = forceScale * ( Damage / 4f );
+                float knockbackForce = forceScale * ( Damage / 5f );
 
                 if ( knockbackForce > 15f )
                 {
                     CameraManager.Instance.ApplyShake( Mathf.Lerp( 1, 4, ( knockbackForce - 15f ) / 30f ), 0.5f );
                 }
 
+                if ( knockBackCo != null )
+                {
+                    StopCoroutine( knockBackCo );
+                }
+
+                StartCoroutine( KnockbackRoutine( Mathf.Lerp( 0, 0.1f, knockbackForce / 15f ) ) );
+
                 Rigidbody.AddForce( ( knockbackForce * hitDirection ) * ( 1 - totalMitigation ), ForceMode.Impulse );
             }
+        }
+
+        private Coroutine knockBackCo;
+
+        private IEnumerator KnockbackRoutine( float returnTime )
+        {
+            BotControl = 0.25f;
+
+            Rigidbody.drag = defaultDrag * 0.25f;
+
+            yield return new WaitForSeconds( 0.25f );
+
+            float t = 0;
+
+            while ( t < returnTime )
+            {
+                Rigidbody.drag = Mathf.Lerp( defaultDrag * 0.25f, defaultDrag, t / 0.25f );
+
+                t += Time.deltaTime;
+
+                yield return null;
+            }
+
+            Rigidbody.drag = defaultDrag;
+
+            BotControl = 1f;
+
+            knockBackCo = null;
         }
 
         public void ToggleMitigationSource( bool isAdding, object source, float mitPercentage )
@@ -324,7 +369,7 @@ namespace CapsuleHands.PlayerCore
         public Action OnPlayerReset;
 
         [Server]
-        public void OnServerPlayerReset()
+        public void OnServerPlayerReset( Vector3 resetSpawn )
         {
             ToggleActive( false );
 
@@ -335,11 +380,11 @@ namespace CapsuleHands.PlayerCore
             if ( isServerOnly )
                 OnPlayerReset?.Invoke();
 
-            OnClientPlayerReset();
+            OnClientPlayerReset( resetSpawn );
         }
 
         [ClientRpc]
-        public void OnClientPlayerReset()
+        public void OnClientPlayerReset( Vector3 resetSpawn )
         {
             graphicsRoot.gameObject.SetActive( true );
 
@@ -347,7 +392,7 @@ namespace CapsuleHands.PlayerCore
             {
                 Rigidbody.velocity = Vector3.zero;
 
-                transform.position = CapsuleNetworkManager.Instance.GetStartPosition().position;
+                transform.position = resetSpawn;
 
                 Vector3 pos = transform.position;
 
@@ -406,9 +451,18 @@ namespace CapsuleHands.PlayerCore
         [ClientRpc]
         private void PlayKnockbackSmoke()
         {
-            if ( knockbackSmoke != null )
+            if ( knockbackSmokeFX != null )
             {
-                knockbackSmoke.Play();
+                knockbackSmokeFX.Play();
+            }
+        }
+
+        [ClientRpc]
+        private void PlayPlayerHit()
+        {
+            if ( playerHitFX != null )
+            {
+                playerHitFX.Play();
             }
         }
 
