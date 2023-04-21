@@ -616,7 +616,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   persist: 0
   maxSize: 0
+  spawnWeight: 1
   pickupEffect: {fileID: 0}
-  rotationSpeed: 60
-  dropSpeed: 1
   weaponPickup: 1

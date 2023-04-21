@@ -1,11 +1,15 @@
 using CapsuleHands.PlayerCore;
 using Mirror;
+using System;
 using UnityEngine;
 
 namespace CapsuleHands.Arena
 {
     public abstract class PickupBase : PooledObject
     {
+        [SerializeField] private float spawnWeight = 0f;
+        public float SpawnWeight => spawnWeight;
+
         [SerializeField] private PooledEffect pickupEffect;
 
         private Vector3 spawnPosition;
@@ -15,6 +19,8 @@ namespace CapsuleHands.Arena
         private const float DROP_SPEED = 2f;
 
         private const float DROP_HEIGHT = 20f;
+
+        public Action<PickupBase> OnPickup;
 
         protected virtual void OnTriggerEnter( Collider col )
         {
@@ -30,6 +36,8 @@ namespace CapsuleHands.Arena
         private void ServerTriggerEnter( Player player )
         {
             Pickup( player );
+
+            OnPickup?.Invoke( this );
         }
 
         protected abstract void Pickup( Player player );

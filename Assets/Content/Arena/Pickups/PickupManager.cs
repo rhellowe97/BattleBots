@@ -1,15 +1,39 @@
 using CapsuleHands.Arena;
 using Mirror;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PickupManager : NetworkBehaviour
 {
+    [SerializeField] private List<PickupBase> pickups;
+
+    private float pickupChanceSum = 0;
+
     [SerializeField] private float minSpawnTime = 8f;
 
     [SerializeField] private float maxSpawnTime = 15f;
 
-    [SerializeField] private List<PickupBase> pickupPrefabs = new List<PickupBase>();
+    public PickupBase GetPickup()
+    {
+        float randomWeight = Random.Range( 0, pickupChanceSum );
+
+        foreach ( PickupBase pickup in pickups )
+        {
+            randomWeight -= pickup.SpawnWeight;
+
+            if ( randomWeight < 0 )
+            {
+                return pickup;
+            }
+        }
+
+        return null;
+    }
+
+    private List<int> openSpawns = new List<int>();
+
+    private Dictionary<PickupBase, int> spawnAssignments = new Dictionary<PickupBase, int>();
 
     private float currentSpawnTime = 0f;
 
@@ -29,6 +53,11 @@ public class PickupManager : NetworkBehaviour
         Instance = this;
 
         transform.SetParent( CapsuleNetworkManager.Instance.transform );
+
+        for ( int i = 0; i < pickups.Count; i++ )
+        {
+            pickupChanceSum += pickups[i].SpawnWeight;
+        }
     }
 
     private void Start()
@@ -67,20 +96,61 @@ public class PickupManager : NetworkBehaviour
 
                 spawnTimer = 0f;
 
-                if ( CapsuleNetworkManager.Instance.Arena != null && CapsuleNetworkManager.Instance.Arena.PickupSpawns.Count > 0 )
+                if ( CapsuleNetworkManager.Instance.Arena != null && CapsuleNetworkManager.Instance.Arena.PickupSpawns.Count > 0 && openSpawns.Count > 0 )
                 {
-                    ClientSpawnPickup( Random.Range( 0, pickupPrefabs.Count ), CapsuleNetworkManager.Instance.Arena.PickupSpawns[Random.Range( 0, CapsuleNetworkManager.Instance.Arena.PickupSpawns.Count )].position, (float)NetworkTime.time );
+                    int pickupSpawnIndex = Random.Range( 0, openSpawns.Count );
+
+                    ClientSpawnPickup( Random.Range( 0, pickups.Count ), openSpawns[pickupSpawnIndex], CapsuleNetworkManager.Instance.Arena.PickupSpawns[openSpawns[pickupSpawnIndex]].position, ( float ) NetworkTime.time );
+
+                    openSpawns.RemoveAt( pickupSpawnIndex );
                 }
             }
         }
     }
 
-    [ClientRpc]
-    private void ClientSpawnPickup( int pickupIndex, Vector3 location, float networkTime )
+    public void ConfigureSpawns()
     {
-        PickupBase pickup = ObjectPoolManager.Instance.GetPooled( pickupPrefabs[pickupIndex].gameObject, transform ).GetComponent<PickupBase>();
+        spawnAssignments.Clear();
 
-        pickup.SetSpawnPosition( location, (float)NetworkTime.time - networkTime );
+        openSpawns.Clear();
+
+        for ( int i = 0; i < CapsuleNetworkManager.Instance.Arena.PickupSpawns.Count; i++ )
+        {
+            openSpawns.Add( i );
+        }
+    }
+
+    [ClientRpc]
+    private void ClientSpawnPickup( int pickupIndex, int spawnIndex, Vector3 spawnPosition, float networkTime )
+    {
+        PickupBase pickupPrefab = GetPickup();
+
+        if ( pickupPrefab != null )
+        {
+            PickupBase pickup = ObjectPoolManager.Instance.GetPooled( pickupPrefab.gameObject, transform ).GetComponent<PickupBase>();
+
+            if ( isServer )
+            {
+                pickup.OnPickup -= PickupBase_OnPickup;
+
+                pickup.OnPickup += PickupBase_OnPickup;
+
+                spawnAssignments.Add( pickup, spawnIndex );
+            }
+
+            pickup.SetSpawnPosition( spawnPosition, ( float ) NetworkTime.time - networkTime );
+        }
+    }
+
+    [Server]
+    private void PickupBase_OnPickup( PickupBase pickup )
+    {
+        if ( spawnAssignments.ContainsKey( pickup ) )
+        {
+            openSpawns.Add( spawnAssignments[pickup] );
+
+            spawnAssignments.Remove( pickup );
+        }
     }
 
     [ClientRpc]
@@ -93,6 +163,8 @@ public class PickupManager : NetworkBehaviour
             if ( pickup.gameObject.activeInHierarchy )
                 ObjectPoolManager.Instance.ReturnToPool( pickup.gameObject );
         }
+
+        ConfigureSpawns();
     }
 
     private void OnDestroy()

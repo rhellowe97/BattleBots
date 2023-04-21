@@ -24256,9 +24256,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   persist: 0
   maxSize: 0
+  spawnWeight: 0.25
   pickupEffect: {fileID: 0}
-  rotationSpeed: 60
-  dropSpeed: 1
   weaponPickup: 3
 --- !u!4 &8893130543854120751 stripped
 Transform:

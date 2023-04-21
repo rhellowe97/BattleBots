@@ -112,6 +112,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7352764935583164028, guid: 6f819b35422da5340a8ffe5a889144a3, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f819b35422da5340a8ffe5a889144a3, type: 3}
 --- !u!1 &2447385161669457762 stripped
@@ -133,6 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   persist: 0
   maxSize: 0
+  spawnWeight: 1
   pickupEffect: {fileID: 0}
   healthRestored: 15
 --- !u!4 &2447385161669457765 stripped
