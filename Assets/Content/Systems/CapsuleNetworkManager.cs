@@ -93,6 +93,8 @@ public class CapsuleNetworkManager : NetworkManager
         base.OnServerSceneChanged( sceneName );
 
         Arena = FindObjectOfType<Arena>(); //TODO Better    
+
+        pickupManagerInstance.ConfigureSpawns();
     }
 
     public override void OnServerChangeScene( string newSceneName )
@@ -237,9 +239,11 @@ public class CapsuleNetworkManager : NetworkManager
     {
         eliminationCount = 0;
 
+        startPositionIndex = 0;
+
         foreach ( Player player in Players.Values )
         {
-            player.OnServerPlayerReset();
+            player.OnServerPlayerReset( GetStartPosition().position );
         }
 
         StartMatch();
