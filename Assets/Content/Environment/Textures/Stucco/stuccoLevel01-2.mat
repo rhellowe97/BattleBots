@@ -273,7 +273,7 @@ Material:
     - _HeightTessCenter1: 0.275
     - _HeightTessCenter2: 0.5
     - _HeightTessCenter3: 0.5
-    - _HeightTransition: 0.326
+    - _HeightTransition: 0.117
     - _HorizonFade: 0.5
     - _HorizonOcclusion: 0
     - _InheritBaseColor1: 0
