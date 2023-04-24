@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 8472867146046367975}
   - component: {fileID: 7733452892208985123}
   m_Layer: 0
-  m_Name: Damage_Low
+  m_Name: FX_Damage_Low
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

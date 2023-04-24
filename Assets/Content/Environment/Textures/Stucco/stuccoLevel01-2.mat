@@ -298,7 +298,7 @@ Material:
     - _MetallicRemapMin1: 0
     - _MetallicRemapMin2: 0
     - _MetallicRemapMin3: 0
-    - _NormalScale: 1.893
+    - _NormalScale: 2
     - _NormalScale1: 1.114
     - _NormalScale2: 1.029
     - _NormalScale3: 1
@@ -317,13 +317,13 @@ Material:
     - _Smoothness1: 0
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
-    - _SmoothnessRemapMax: 0.26563403
+    - _SmoothnessRemapMax: 0.51424754
     - _SmoothnessRemapMax1: 1
-    - _SmoothnessRemapMax2: 1
+    - _SmoothnessRemapMax2: 0.8661311
     - _SmoothnessRemapMax3: 1
-    - _SmoothnessRemapMin: 0.019124115
+    - _SmoothnessRemapMin: 0.2677376
     - _SmoothnessRemapMin1: 0
-    - _SmoothnessRemapMin2: 0
+    - _SmoothnessRemapMin2: 0.16064258
     - _SmoothnessRemapMin3: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularAAScreenSpaceVariance: 0.1

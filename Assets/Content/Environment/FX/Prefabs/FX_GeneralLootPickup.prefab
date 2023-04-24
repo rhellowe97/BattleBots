@@ -4892,7 +4892,7 @@ GameObject:
   - component: {fileID: 3088386166212758640}
   - component: {fileID: 4947572130008331749}
   m_Layer: 0
-  m_Name: GeneralLootPickup
+  m_Name: FX_GeneralLootPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
