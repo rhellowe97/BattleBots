@@ -15,6 +15,8 @@ namespace CapsuleHands.PlayerCore.Weapons
 
         [SerializeField] protected PooledEffect impactEffectPrefab;
 
+        [SerializeField] protected PooledSound impactSoundPrefab;
+
         [SerializeField] protected bool rayMarchDetection = true;
 
         protected Transform aimTarget;
@@ -147,6 +149,17 @@ namespace CapsuleHands.PlayerCore.Weapons
                 impactEffectInstance.transform.rotation = Quaternion.LookRotation( contactNormal, Vector3.up );
 
                 impactEffectInstance.Play();
+            }
+
+            if ( impactSoundPrefab != null )
+            {
+                PooledSound soundEffectInstance = ObjectPoolManager.Instance.GetPooled( impactSoundPrefab.gameObject ).GetComponent<PooledSound>();
+
+                soundEffectInstance.transform.position = contactPoint;
+
+                soundEffectInstance.transform.rotation = Quaternion.LookRotation( contactNormal, Vector3.up );
+
+                soundEffectInstance.Play();
             }
 
             if ( Data.Splash )

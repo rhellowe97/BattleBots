@@ -22,18 +22,24 @@ namespace CapsuleHands.PlayerCore.Weapons
             aimLine.enabled = false;
         }
 
-        public override void Equip()
+        public override void Equip( bool isLocalPlayer )
         {
-            AimManager.Instance.AddLock( this );
+            if ( isLocalPlayer )
+            {
+                AimManager.Instance.AddLock( this );
 
-            aimLine.enabled = true;
+                aimLine.enabled = true;
+            }
         }
 
-        public override void Eject()
+        public override void Eject( bool isLocalPlayer )
         {
-            AimManager.Instance.RemoveLock( this );
+            if ( isLocalPlayer )
+            {
+                AimManager.Instance.RemoveLock( this );
 
-            aimLine.enabled = false;
+                aimLine.enabled = false;
+            }
         }
 
         public override void UpdateAim( Player player )

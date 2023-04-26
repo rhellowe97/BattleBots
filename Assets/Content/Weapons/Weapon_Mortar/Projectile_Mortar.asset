@@ -20,7 +20,7 @@ MonoBehaviour:
   seeking: 0
   seekRate: 30
   splash: 1
-  splashPrefab: {fileID: 3014246923724280927, guid: 3b9fa3edfbf4ccd4ba56c3fcf2d539ee, type: 3}
+  splashPrefab: {fileID: 3014246923724280927, guid: 8039c1567adac094bbe38a8636a57407, type: 3}
   splashRadius: 2
   splashDamage: 10
   splashForce: 2

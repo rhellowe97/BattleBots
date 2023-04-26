@@ -132,7 +132,8 @@ MonoBehaviour:
   persist: 0
   maxSize: 0
   data: {fileID: 11400000, guid: 158d5e107c429d24c950912d3ccfab85, type: 2}
-  impactEffectPrefab: {fileID: 5844918664300231885, guid: 8d03562fababfdb41b9761e2e35fa6cd, type: 3}
+  impactEffectPrefab: {fileID: 5340934140136102816, guid: 3ce27193b6ca9334d9f2770649076d88, type: 3}
+  rayMarchDetection: 1
 --- !u!96 &6908436559066430936
 TrailRenderer:
   serializedVersion: 2
