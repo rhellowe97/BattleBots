@@ -77,12 +77,12 @@ namespace CapsuleHands.PlayerCore.Weapons
             return player.AimTarget - source.position;
         }
 
-        public virtual void Equip()
+        public virtual void Equip( bool isLocalPlayer )
         {
 
         }
 
-        public virtual void Eject()
+        public virtual void Eject( bool isLocalPlayer )
         {
 
         }

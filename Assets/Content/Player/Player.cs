@@ -65,6 +65,8 @@ namespace CapsuleHands.PlayerCore
         [SyncVar]
         private Vector3 spawn;
 
+        [SerializeField] private ParticleSystem spawnEffect;
+
         #region Grounding
 
         public bool IsGrounded => validGroundCast || groundContacts.Count > 0;
@@ -406,6 +408,10 @@ namespace CapsuleHands.PlayerCore
 
                 groundTarget.position = Vector3.zero;
             }
+
+            spawnEffect.transform.position = resetSpawn;
+
+            spawnEffect.Play();
 
             CameraManager.Instance.SubscriptionUpdate( this, true );
 
