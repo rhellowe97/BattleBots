@@ -4890,6 +4890,7 @@ GameObject:
   - component: {fileID: 8665324631891592028}
   - component: {fileID: 6700849410535724294}
   - component: {fileID: 3145196495907024109}
+  - component: {fileID: 5340934140136102816}
   m_Layer: 0
   m_Name: FX_BasicGunImpact
   m_TagString: Untagged
@@ -4924,7 +4925,7 @@ ParticleSystem:
   serializedVersion: 8
   lengthInSec: 1
   simulationSpeed: 1
-  stopAction: 0
+  stopAction: 3
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -9809,6 +9810,21 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &5340934140136102816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4765295490874728068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58831e3279b451549962d9831d162546, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  persist: 0
+  maxSize: 0
+  effect: {fileID: 6700849410535724294}
 --- !u!1 &8690135740493713542
 GameObject:
   m_ObjectHideFlags: 0
