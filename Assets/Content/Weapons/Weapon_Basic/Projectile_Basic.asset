@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Projectile_Basic
   m_EditorClassIdentifier: 
   guid: 6E687543E51E45D7987B61A381FBDB5A
-  speed: 25
-  damage: 4
+  speed: 35
+  damage: 8
   lifeDuration: 3
   impactEffect: {fileID: 0}
   seeking: 0

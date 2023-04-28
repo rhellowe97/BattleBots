@@ -1,4 +1,5 @@
 using CapsuleHands.PlayerCore.Weapons;
+using CapsuleHands.UI;
 using Mirror;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
@@ -113,6 +114,10 @@ namespace CapsuleHands.PlayerCore
 
                 toggleAimAction.performed += ToggleAimAction_Performed;
             }
+
+            PlayerUIManager.Instance.AddUIElement( PlayerUIManager.UILocation.TopRight, basicWeaponUI.transform );
+
+            basicWeaponUI.gameObject.SetActive( true );
         }
 
         protected override void LocalPlayerUpdate()
@@ -136,6 +141,13 @@ namespace CapsuleHands.PlayerCore
                 {
                     LocalShoot();
                 }
+            }
+
+            heat = Mathf.Max( heat - cooldownRate * Time.deltaTime, 0 );
+
+            if ( basicWeaponUI != null )
+            {
+                basicWeaponUI.Refresh( heat / heatCap );
             }
         }
 
@@ -244,13 +256,29 @@ namespace CapsuleHands.PlayerCore
 
         private const float MAX_PASSED_TIME = 0.3f;
 
+        [SerializeField] private float heatCap = 100f;
+
+        [SerializeField] private float cooldownRate = 5f;
+
+        [SerializeField] private float shotHeat = 10f;
+
+        [SerializeField] private BasicWeaponUI basicWeaponUI;
+
+        private float heat = 0f;
+
         private void LocalShoot()
         {
-            cooldownTimer = 0f;
+            if ( weaponIndex != 0 || heat < heatCap - shotHeat )
+            {
+                cooldownTimer = 0f;
 
-            CurrentWeapon.Shoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), 0f );
+                if ( weaponIndex == 0 )
+                    heat += shotHeat;
 
-            ServerShoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), ( float ) NetworkTime.time, weaponIndex );
+                CurrentWeapon.Shoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), 0f );
+
+                ServerShoot( CurrentWeapon.Source.position, CurrentWeapon.GetAimDirection( player ), ( float ) NetworkTime.time, weaponIndex );
+            }
         }
 
         private void ShootAction_Performed( InputAction.CallbackContext context )
@@ -297,6 +325,19 @@ namespace CapsuleHands.PlayerCore
                 ToggleAiming( !aimingActive );
         }
 
+        public void ForceRelease()
+        {
+            if ( isLocalPlayer )
+            {
+                if ( CurrentWeapon.Data.FireMode != WeaponData.WeaponFireMode.Single )
+                {
+                    CurrentWeapon.Release( 0f );
+
+                    ServerRelease( ( float ) NetworkTime.time, weaponIndex );
+                }
+            }
+        }
+
         private void OnDestroy()
         {
             if ( shootAction != null )
@@ -307,6 +348,11 @@ namespace CapsuleHands.PlayerCore
             if ( toggleAimAction != null )
             {
                 toggleAimAction.performed -= ToggleAimAction_Performed;
+            }
+
+            if ( isLocalPlayer && PlayerUIManager.Exists )
+            {
+                PlayerUIManager.Instance.RemoveUIElement( PlayerUIManager.UILocation.TopRight, basicWeaponUI.transform );
             }
         }
     }
