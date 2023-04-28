@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Weapon_BasicGun
   m_EditorClassIdentifier: 
   guid: 75F2C4376A85452A9044E1C6561F3D50
-  cooldown: 0.5
+  cooldown: 0.3
   ammoCapactity: -1
   fireMode: 1

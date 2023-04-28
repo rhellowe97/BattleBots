@@ -861,8 +861,8 @@ MonoBehaviour:
   shootGroundTarget: {fileID: 2696180308980019359}
   shootAimTarget: {fileID: 2696180309661693558}
   heatCap: 100
-  cooldownRate: 10
-  shotHeat: 15
+  cooldownRate: 15
+  shotHeat: 7.5
   basicWeaponUI: {fileID: 9155080620973324548}
 --- !u!114 &4763293661883198566
 MonoBehaviour:
@@ -1051,7 +1051,7 @@ Transform:
   m_GameObject: {fileID: 2696180309512520118}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.587, z: 0.001}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2696180310044335153}
@@ -8302,6 +8302,18 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.65
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
       propertyPath: m_LocalPosition.x
