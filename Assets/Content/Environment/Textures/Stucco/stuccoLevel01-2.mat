@@ -22,6 +22,7 @@ Material:
   - _NORMALMAP
   - _NORMALMAP1
   - _NORMALMAP2
+  - _PIXEL_DISPLACEMENT
   - _VERTEX_DISPLACEMENT_LOCK_OBJECT_SCALE
   m_InvalidKeywords:
   - _HORIZONOCCLUSION_OFF
@@ -112,7 +113,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap2:
-        m_Texture: {fileID: 2800000, guid: 3b1853f0e401d9d4dbd2c683200dcd8e, type: 3}
+        m_Texture: {fileID: 2800000, guid: a0c3ffac96b46b746a20078d53218074, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap3:
@@ -227,7 +228,7 @@ Material:
     - _DetailSmoothnessScale2: 1
     - _DetailSmoothnessScale3: 1
     - _DisplacementLockObjectScale: 1
-    - _DisplacementMode: 0
+    - _DisplacementMode: 2
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
     - _EmissionScale: 1
@@ -237,13 +238,13 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightAmplitude: 0.022999998
-    - _HeightAmplitude1: 0.0409
-    - _HeightAmplitude2: 0.0548
+    - _HeightAmplitude: 0.036099996
+    - _HeightAmplitude1: 0.0119
+    - _HeightAmplitude2: 0.0158
     - _HeightAmplitude3: 0.02
-    - _HeightCenter: 0.5652174
-    - _HeightCenter1: 0.15275063
-    - _HeightCenter2: 0.5
+    - _HeightCenter: 1
+    - _HeightCenter1: 1
+    - _HeightCenter2: 1
     - _HeightCenter3: 0.5
     - _HeightMapParametrization: 0
     - _HeightMapParametrization1: 0
@@ -261,9 +262,9 @@ Material:
     - _HeightOffset1: 0.5
     - _HeightOffset2: 0
     - _HeightOffset3: 0
-    - _HeightPoMAmplitude: 2.5
-    - _HeightPoMAmplitude1: 1
-    - _HeightPoMAmplitude2: 1
+    - _HeightPoMAmplitude: 3.61
+    - _HeightPoMAmplitude1: 1.19
+    - _HeightPoMAmplitude2: 1.58
     - _HeightPoMAmplitude3: 2
     - _HeightTessAmplitude: 2.3
     - _HeightTessAmplitude1: 4.09
@@ -273,7 +274,7 @@ Material:
     - _HeightTessCenter1: 0.275
     - _HeightTessCenter2: 0.5
     - _HeightTessCenter3: 0.5
-    - _HeightTransition: 0.117
+    - _HeightTransition: 0.16
     - _HorizonFade: 0.5
     - _HorizonOcclusion: 0
     - _InheritBaseColor1: 0

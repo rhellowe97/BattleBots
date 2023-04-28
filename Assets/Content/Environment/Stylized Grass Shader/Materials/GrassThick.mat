@@ -132,7 +132,7 @@ Material:
     - _TranslucencyFalloff: 4
     - _TranslucencyIndirect: 0
     - _TranslucencyOffset: 0
-    - _VertexDarkening: 0
+    - _VertexDarkening: 0.578
     - _WindAmbientStrength: 0.2
     - _WindGustFreq: 4
     - _WindGustSpeed: 4
@@ -147,8 +147,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.7264151, b: 0.33370882, a: 1}
-    - _BendTint: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    - _BaseColor: {r: 0.81942415, g: 0.8396226, b: 0.23366857, a: 1}
+    - _BendTint: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
     - _Color: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FadeFar: {r: 50, g: 100, b: 0, a: 0}

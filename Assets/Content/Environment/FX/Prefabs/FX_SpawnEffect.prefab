@@ -867,7 +867,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 45
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -5569,7 +5569,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 1.09
       mode: 0
       spread: 0
       speed:
@@ -5688,7 +5688,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 35
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -10391,7 +10391,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.42
+      value: 0.88
       mode: 0
       spread: 0
       speed:
@@ -10510,7 +10510,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 30
+      scalar: 45
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -24694,7 +24694,7 @@ ParticleSystem:
     startSizeY:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3
+      scalar: 4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -24747,7 +24747,7 @@ ParticleSystem:
     startSizeZ:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.8
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
