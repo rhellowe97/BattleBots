@@ -73,7 +73,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Evade"",
+                    ""name"": ""Dash"",
                     ""type"": ""Button"",
                     ""id"": ""7cc9d5ee-9930-4f44-9b13-13d6ee8d720d"",
                     ""expectedControlType"": ""Button"",
@@ -232,11 +232,11 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3327ea1f-7067-4fea-9c92-c6febbc21fc5"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Evade"",
+                    ""action"": ""Dash"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -383,7 +383,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         m_Player_AbilityPrimary = m_Player.FindAction("AbilityPrimary", throwIfNotFound: true);
         m_Player_AbilitySecondary = m_Player.FindAction("AbilitySecondary", throwIfNotFound: true);
         m_Player_AbilityTertiary = m_Player.FindAction("AbilityTertiary", throwIfNotFound: true);
-        m_Player_Evade = m_Player.FindAction("Evade", throwIfNotFound: true);
+        m_Player_Dash = m_Player.FindAction("Dash", throwIfNotFound: true);
         m_Player_Block = m_Player.FindAction("Block", throwIfNotFound: true);
         m_Player_ToggleAim = m_Player.FindAction("ToggleAim", throwIfNotFound: true);
         m_Player_ElevationAim = m_Player.FindAction("ElevationAim", throwIfNotFound: true);
@@ -452,7 +452,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AbilityPrimary;
     private readonly InputAction m_Player_AbilitySecondary;
     private readonly InputAction m_Player_AbilityTertiary;
-    private readonly InputAction m_Player_Evade;
+    private readonly InputAction m_Player_Dash;
     private readonly InputAction m_Player_Block;
     private readonly InputAction m_Player_ToggleAim;
     private readonly InputAction m_Player_ElevationAim;
@@ -466,7 +466,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         public InputAction @AbilityPrimary => m_Wrapper.m_Player_AbilityPrimary;
         public InputAction @AbilitySecondary => m_Wrapper.m_Player_AbilitySecondary;
         public InputAction @AbilityTertiary => m_Wrapper.m_Player_AbilityTertiary;
-        public InputAction @Evade => m_Wrapper.m_Player_Evade;
+        public InputAction @Dash => m_Wrapper.m_Player_Dash;
         public InputAction @Block => m_Wrapper.m_Player_Block;
         public InputAction @ToggleAim => m_Wrapper.m_Player_ToggleAim;
         public InputAction @ElevationAim => m_Wrapper.m_Player_ElevationAim;
@@ -495,9 +495,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AbilityTertiary.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilityTertiary;
                 @AbilityTertiary.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilityTertiary;
                 @AbilityTertiary.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAbilityTertiary;
-                @Evade.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEvade;
-                @Evade.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEvade;
-                @Evade.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEvade;
+                @Dash.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
+                @Dash.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDash;
                 @Block.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
                 @Block.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
                 @Block.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnBlock;
@@ -529,9 +529,9 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @AbilityTertiary.started += instance.OnAbilityTertiary;
                 @AbilityTertiary.performed += instance.OnAbilityTertiary;
                 @AbilityTertiary.canceled += instance.OnAbilityTertiary;
-                @Evade.started += instance.OnEvade;
-                @Evade.performed += instance.OnEvade;
-                @Evade.canceled += instance.OnEvade;
+                @Dash.started += instance.OnDash;
+                @Dash.performed += instance.OnDash;
+                @Dash.canceled += instance.OnDash;
                 @Block.started += instance.OnBlock;
                 @Block.performed += instance.OnBlock;
                 @Block.canceled += instance.OnBlock;
@@ -573,7 +573,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         void OnAbilityPrimary(InputAction.CallbackContext context);
         void OnAbilitySecondary(InputAction.CallbackContext context);
         void OnAbilityTertiary(InputAction.CallbackContext context);
-        void OnEvade(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
         void OnBlock(InputAction.CallbackContext context);
         void OnToggleAim(InputAction.CallbackContext context);
         void OnElevationAim(InputAction.CallbackContext context);
