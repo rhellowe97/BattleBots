@@ -67,6 +67,8 @@ namespace CapsuleHands.PlayerCore
             {
                 Vector3 moveVector = Quaternion.Euler( 0, player.MainCamera.transform.eulerAngles.y, 0 ) * moveInput;
 
+                player.MoveDirection = moveVector;
+
                 if ( player.Rigidbody.velocity.sqrMagnitude >= moveSpeed * moveSpeed )
                 {
                     Vector3 vel = player.Rigidbody.velocity;

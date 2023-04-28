@@ -93,6 +93,8 @@ namespace CapsuleHands.PlayerCore
         [SerializeField] private Transform groundTarget;
         public Transform GroundTarget => groundTarget;
 
+        public Vector3 MoveDirection = Vector3.zero;
+
         public Vector3 AimTarget { get; private set; }
 
         public Action OnUIRefresh;
@@ -101,9 +103,9 @@ namespace CapsuleHands.PlayerCore
 
         public void GetAimTarget( bool elevation )
         {
-            float groundToAimDist = hoverHeight + Gun.localPosition.y + 0.15f;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
+            float groundToAimDist = hoverHeight + Gun.localPosition.y;// / ( Mathf.Sin( Mathf.Deg2Rad * MainCamera.transform.eulerAngles.x ) );
             //( MainCamera.transform.position - groundTarget.position ).normalized
-            AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( ( transform.position.y - groundToAimDist ) - groundTarget.position.y, 0f, 1f ) ) : 0f );
+            AimTarget = groundTarget.position + Vector3.up * ( elevation ? Mathf.Lerp( groundToAimDist, groundToAimDist * 0.5f, Mathf.Clamp( ( transform.position.y - groundToAimDist ) - groundTarget.position.y, 0f, 1f ) ) : Gun.localPosition.y );
         }
 
         private void Awake()
@@ -122,6 +124,8 @@ namespace CapsuleHands.PlayerCore
             {
                 active = true;
             }
+
+            DontDestroyOnLoad( gameObject );
         }
 
         [Server]
@@ -285,20 +289,25 @@ namespace CapsuleHands.PlayerCore
                     CameraManager.Instance.ApplyShake( Mathf.Lerp( 1, 4, ( knockbackForce - 15f ) / 30f ), 0.5f );
                 }
 
-                if ( knockBackCo != null )
-                {
-                    StopCoroutine( knockBackCo );
-                }
-
-                StartCoroutine( KnockbackRoutine( Mathf.Lerp( 0, 0.1f, knockbackForce / 15f ) ) );
+                ReduceDragRoutine( Mathf.Lerp( 0, 0.25f, knockbackForce / 15f ) );
 
                 Rigidbody.AddForce( ( knockbackForce * hitDirection ) * ( 1 - totalMitigation ), ForceMode.Impulse );
             }
         }
 
-        private Coroutine knockBackCo;
+        public void ReduceDrag( float returnTime )
+        {
+            if ( reduceDragCo != null )
+            {
+                StopCoroutine( reduceDragCo );
+            }
 
-        private IEnumerator KnockbackRoutine( float returnTime )
+            reduceDragCo = StartCoroutine( ReduceDragRoutine( returnTime ) );
+        }
+
+        private Coroutine reduceDragCo;
+
+        private IEnumerator ReduceDragRoutine( float returnTime )
         {
             BotControl = 0.25f;
 
@@ -320,8 +329,8 @@ namespace CapsuleHands.PlayerCore
             Rigidbody.drag = defaultDrag;
 
             BotControl = 1f;
-
-            knockBackCo = null;
+             
+            reduceDragCo = null;
         }
 
         public void ToggleMitigationSource( bool isAdding, object source, float mitPercentage )
@@ -441,7 +450,11 @@ namespace CapsuleHands.PlayerCore
             graphicsRoot.gameObject.SetActive( false );
 
             if ( isLocalPlayer )
+            {
                 Rigidbody.isKinematic = true;
+
+                GetComponent<PlayerShoot>().ForceRelease();
+            }
 
             CameraManager.Instance.SubscriptionUpdate( this, false );
         }

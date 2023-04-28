@@ -144,8 +144,6 @@ public class CapsuleNetworkManager : NetworkManager
 
         player.name = $"{playerPrefab.name} [connId={conn.connectionId}]";
 
-        DontDestroyOnLoad( player );
-
         NetworkServer.AddPlayerForConnection( conn, player );
 
         if ( player.TryGetComponent( out Player playerComp ) )
