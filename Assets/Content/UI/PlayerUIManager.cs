@@ -1,11 +1,21 @@
 using CapsuleHands.PlayerCore;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace CapsuleHands.UI
 {
     public class PlayerUIManager : Singleton<PlayerUIManager>
     {
+        public enum UILocation
+        {
+            TopLeft,
+            TopRight,
+        }
+
+        [SerializeField] private UDictionary<UILocation, Transform> locationRoots;
+
         [SerializeField] private GameObject playerUIPrefab;
 
         [SerializeField] private Transform playerUIContainer;
@@ -34,6 +44,24 @@ namespace CapsuleHands.UI
                 Destroy( playerUIMapping[player].gameObject );
 
                 playerUIMapping.Remove( player );
+            }
+        }
+
+        public void AddUIElement( UILocation location, Transform element )
+        {
+            if ( locationRoots.ContainsKey( location ) )
+            {
+                element.SetParent( locationRoots[location] );
+
+                element.localScale = Vector3.one;
+            }
+        }
+
+        public void RemoveUIElement( UILocation location, Transform element )
+        {
+            if ( locationRoots.ContainsKey( location ) && element.parent == locationRoots[location] )
+            {
+                Destroy( element.gameObject );
             }
         }
     }
