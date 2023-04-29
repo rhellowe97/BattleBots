@@ -37,7 +37,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 17ffae658871de34bad45aa88452bbba, type: 3}
+        m_Texture: {fileID: 2800000, guid: 56d10522e1d96dd4780563432eecae0a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap1:
@@ -129,7 +129,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 17ffae658871de34bad45aa88452bbba, type: 3}
+        m_Texture: {fileID: 2800000, guid: 56d10522e1d96dd4780563432eecae0a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskMap:
@@ -238,7 +238,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _HeightAmplitude: 0.036099996
+    - _HeightAmplitude: 0.024999999
     - _HeightAmplitude1: 0.0119
     - _HeightAmplitude2: 0.0158
     - _HeightAmplitude3: 0.02
@@ -262,7 +262,7 @@ Material:
     - _HeightOffset1: 0.5
     - _HeightOffset2: 0
     - _HeightOffset3: 0
-    - _HeightPoMAmplitude: 3.61
+    - _HeightPoMAmplitude: 2.5
     - _HeightPoMAmplitude1: 1.19
     - _HeightPoMAmplitude2: 1.58
     - _HeightPoMAmplitude3: 2
@@ -318,11 +318,11 @@ Material:
     - _Smoothness1: 0
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
-    - _SmoothnessRemapMax: 0.51424754
+    - _SmoothnessRemapMax: 0.5218971
     - _SmoothnessRemapMax1: 1
     - _SmoothnessRemapMax2: 0.8661311
     - _SmoothnessRemapMax3: 1
-    - _SmoothnessRemapMin: 0.2677376
+    - _SmoothnessRemapMin: 0.27538726
     - _SmoothnessRemapMin1: 0
     - _SmoothnessRemapMin2: 0.16064258
     - _SmoothnessRemapMin3: 0
