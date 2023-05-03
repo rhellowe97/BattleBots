@@ -77,11 +77,11 @@ namespace CapsuleHands.PlayerCore
             PunchActive = false;
         }
 
-        public void Punch( float passedTime )
+        public void Punch( Vector3 direction, float passedTime )
         {
             if ( isLocalPlayer )
             {
-                player.Rigidbody.AddForce( player.MoveDirection * dashImpulse, ForceMode.Impulse );
+                player.Rigidbody.AddForce( direction * dashImpulse, ForceMode.Impulse );
 
                 player.ReduceDrag( dashDuration );
 
@@ -92,7 +92,11 @@ namespace CapsuleHands.PlayerCore
             }
 
             if ( punchEffect != null )
+            {
+                punchEffect.transform.rotation = Quaternion.LookRotation( direction, Vector3.up );
+
                 punchEffect.Play();
+            }
 
             if ( punchAudio != null )
                 punchAudio.Play();
@@ -123,23 +127,23 @@ namespace CapsuleHands.PlayerCore
         }
 
         [Command]
-        private void ServerPunch( float networkTime )
+        private void ServerPunch( Vector3 direction, float networkTime )
         {
             float passedTime = ( float ) ( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME / 2f, passedTime );
 
-            ClientPunch( networkTime );
+            ClientPunch( direction, networkTime );
         }
 
         [ClientRpc( includeOwner = false )]
-        private void ClientPunch( float networkTime )
+        private void ClientPunch( Vector3 direction, float networkTime )
         {
             float passedTime = ( float ) ( NetworkTime.time - networkTime );
 
             passedTime = Mathf.Min( MAX_PASSED_TIME, passedTime );
 
-            Punch( passedTime );
+            Punch( direction, passedTime );
         }
 
         private const float MAX_PASSED_TIME = 0.3f;
@@ -171,9 +175,9 @@ namespace CapsuleHands.PlayerCore
         {
             if ( player.Active && chargeCount > 0 )
             {
-                Punch( 0f );
+                Punch( player.MoveDirection, 0f );
 
-                ServerPunch( ( float ) NetworkTime.time );
+                ServerPunch( player.MoveDirection, ( float ) NetworkTime.time );
             }
         }
 
