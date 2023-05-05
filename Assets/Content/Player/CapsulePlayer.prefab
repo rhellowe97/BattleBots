@@ -863,7 +863,7 @@ MonoBehaviour:
   shootAimTarget: {fileID: 2696180309661693558}
   heatCap: 100
   cooldownRate: 15
-  shotHeat: 7.5
+  shotHeat: 5
   basicWeaponUI: {fileID: 9155080620973324548}
 --- !u!114 &4763293661883198566
 MonoBehaviour:
@@ -1079,6 +1079,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 317760037191089224, guid: 8219119947e31e0479b8e9f79a4bd2a0, type: 3}
   shotAudio: {fileID: 8540103107570455207}
   shotEffect: {fileID: 0}
+  animator: {fileID: 6304361250695036591}
 --- !u!120 &2696180309512520116
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1556,6 +1557,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1985497590612159118, guid: 54eab2b3cc91a454fb4e4306d2596053, type: 3}
   shotAudio: {fileID: 840916832978901795}
   shotEffect: {fileID: 0}
+  animator: {fileID: 0}
   targetOffset: {x: 0, y: 0.4, z: 0}
 --- !u!120 &6930178832038831583
 LineRenderer:
@@ -6862,6 +6864,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   shotAudio: {fileID: 6274549233069626579}
   shotEffect: {fileID: 0}
+  animator: {fileID: 0}
   aimLine: {fileID: 825665942899991894}
   beamDistance: 15
   railBeamPrefab: {fileID: 6545048495741801825, guid: 5aaf017d7070b4a45a68a94b21138263, type: 3}
@@ -7230,6 +7233,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1985497590612159118, guid: cf666cacef3c28d4a801a94b32dfec34, type: 3}
   shotAudio: {fileID: 3991164344900956556}
   shotEffect: {fileID: 0}
+  animator: {fileID: 0}
   targetOffset: {x: 0, y: 0, z: 0}
 --- !u!120 &3308598875247445195
 LineRenderer:
@@ -7564,6 +7568,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 1985497590612159118, guid: cc5564559adb7bd48884bbeae742aa36, type: 3}
   shotAudio: {fileID: 6023462914921395440}
   shotEffect: {fileID: 0}
+  animator: {fileID: 0}
   midpoint: {fileID: 2119020015626628030}
   midPointHeight: 6
   arcCurveSteps: 20
@@ -8306,15 +8311,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.65
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8367,6 +8372,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -353026292141093752, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
   m_PrefabInstance: {fileID: 6779689118430141682}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5969277784983413155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}
+  m_PrefabInstance: {fileID: 6779689118430141682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6304361250695036591
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5969277784983413155}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c930ce2148f712a41b516678202642cb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &6457302220581993241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 32063fb67d7b38443800d3a471b698ff, type: 3}

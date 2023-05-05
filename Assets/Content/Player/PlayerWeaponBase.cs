@@ -16,6 +16,8 @@ namespace CapsuleHands.PlayerCore.Weapons
 
         [SerializeField] protected ParticleSystem shotEffect;
 
+        [SerializeField] protected Animator animator;
+
         public bool Active { get; private set; }
 
         protected LayerMask targetLayerMask;
@@ -29,7 +31,7 @@ namespace CapsuleHands.PlayerCore.Weapons
 
         public virtual void Setup()
         {
-      
+
         }
 
         public void Configure( IHittable owner, LayerMask targetLayerMask )
@@ -45,6 +47,9 @@ namespace CapsuleHands.PlayerCore.Weapons
 
             if ( shotEffect != null )
                 shotEffect.Play();
+
+            if ( animator != null )
+                animator.SetTrigger( "Fire" );
         }
 
         public virtual void UpdateAim( Player player )
