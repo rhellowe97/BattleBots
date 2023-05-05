@@ -70,6 +70,5 @@ MonoBehaviour:
   - {fileID: 3828626589909353598, guid: 714352d4bd5c6f042a6451d37d6de5fa, type: 3}
   - {fileID: 6782914266146352135, guid: 15adb8d5e4108334791c2cd02bde6181, type: 3}
   - {fileID: -3108352704604522167, guid: d58dfa97d1ed8884f9e85e45910d2f7d, type: 3}
-  - {fileID: 4017598619183423066, guid: 29fc0a91313abab46ba5a0243ff02bbd, type: 3}
   minSpawnTime: 3
   maxSpawnTime: 4.5
