@@ -12,5 +12,6 @@ Areas of focus for this project:
 
 ![BattleBots 02](https://github.com/rhellowe97/BattleBots/assets/50386610/fc179b35-ada4-4fd2-bbdb-bcb7ec66aee6)
 
-![BattleBots 01](https://github.com/rhellowe97/BattleBots/assets/50386610/57385577-5eff-4331-b6c2-2254e5ef7ad6)
+![BattleBots_03](https://github.com/rhellowe97/BattleBots/assets/50386610/829a02bf-461b-4397-8dcb-d35656990b4d)
+
 
