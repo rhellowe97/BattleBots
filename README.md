@@ -5,7 +5,7 @@ Battle Bots is a multiplayer PvP prototype, where players brawl across a variety
 Areas of focus for this project:
 - Peer to Peer networking using Mirror. One player can host a match where opponents can drop in and out.
 - Lag Compensated projectiles, so clients can all see the same positions and speeds of gunfire.
-- Synchronzied dynamic map elements. Rotating and moving map hazards that can hit the players are kept in sync across clients.
+- Synchronized dynamic map elements. Rotating and moving map hazards that can hit the players are kept in sync across clients.
 - Object pooling for projectiles and effects, to increase performance when matches get chaotic.
 
 ![BattleBotsCover](https://github.com/rhellowe97/BattleBots/assets/50386610/59e19ba6-3fb8-4c7f-8a2b-6e71ab98ac98)
